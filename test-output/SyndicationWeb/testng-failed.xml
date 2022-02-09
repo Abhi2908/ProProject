@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [SyndicationWeb]">
+  <parameter name="browser" value="chrome"/>
+  <test name="Syndication Regression(failed)">
+    <classes>
+      <class name="syndication.web.WebTest">
+        <methods>
+          <include name="takescreenshotonfail"/>
+          <include name="quitDrivers"/>
+          <include name="setup"/>
+          <include name="beforeMethodSetup"/>
+          <include name="closeAllWindows"/>
+          <include name="startDrivers"/>
+          <include name="synProNegativeTestForRegistrationPage"/>
+        </methods>
+      </class> <!-- syndication.web.WebTest -->
+    </classes>
+  </test> <!-- Syndication Regression(failed) -->
+</suite> <!-- Failed suite [SyndicationWeb] -->
