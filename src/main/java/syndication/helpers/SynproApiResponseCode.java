@@ -1,16 +1,10 @@
 package syndication.helpers;
 
 import static io.restassured.RestAssured.given;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-
-
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
 
 import org.apache.log4j.Logger;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 public class SynproApiResponseCode {

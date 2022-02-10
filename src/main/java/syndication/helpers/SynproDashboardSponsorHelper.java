@@ -6,6 +6,7 @@ import syndication.pages.SynproCommonLocatorPage;
 import syndication.pages.SynproDashboardPage;
 import syndication.web.CommonUtils;
 import syndication.web.TestData;
+import static io.restassured.RestAssured.given;
 
 public class SynproDashboardSponsorHelper extends CommonUtils {
 
@@ -383,5 +384,28 @@ public class SynproDashboardSponsorHelper extends CommonUtils {
 		accessLink(commonPage.common_pagination_button("Leads"));
 
 	}
+	
+	/**
+	 * @param verify values
+	 * @throws Exception
+	 */
+	public void verifyDashboardKPI() throws Exception {
+
+		// https://dev-backend.synprointernal.com/graphql
+
+		// RestAssured.baseURI = "https://dev-backend.synprointernal.com/graphql";
+		// ";
+
+		// given().log().all().contentType("application/json").body(query).when().post("https://dev-backend.synprointernal.com/graphql").then().assertThat().statusCode(200);
+		// https://swapi-graphql.netlify.app/.netlify/functions/index
+
+	//	RestAssured.baseURI = "https://dev-backend.synprointernal.com/graphql";
+		String query = "{\"query\":\"mutation login{\\nlogin(email: \\\"sweta.sharan@armentum.co\\\", password: \\\"123\\\"){\\nid\\ntoken\\n}\\n}\",\"variables\":null,\"operationName\":\"login\"}";
+
+		given().log().all().contentType("application/json").header("hostname", "predev.dev.synprointernal.com")
+				.body(query).when().log().all().post("https://dev-backend.synprointernal.com/graphql").then().log()
+				.all().assertThat().statusCode(200);
+	}
+
 
 }

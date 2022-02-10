@@ -140,6 +140,7 @@ public class WebTest extends TestBase {
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(props.getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
+			dashboardAsSponsor.verifyDashboardKPI();
 			//dashboardAsSponsor.verifyLeadsEmail();
 			dashboardAsSponsor.verifyLeadsEdit();
 			//dashboardAsSponsor.verifyLeadsNotes();
