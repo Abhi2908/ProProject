@@ -1,6 +1,7 @@
 package syndication.helpers;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import syndication.pages.SynproCommonLocatorPage;
 import syndication.pages.SynproDashboardPage;
@@ -385,6 +386,9 @@ public class SynproDashboardSponsorHelper extends CommonUtils {
 
 	}
 	
+	static SynproApiResponseCode obj = new SynproApiResponseCode();
+	static JSONObject responseJson;
+	
 	/**
 	 * @param verify values
 	 * @throws Exception
@@ -402,10 +406,12 @@ public class SynproDashboardSponsorHelper extends CommonUtils {
 	//	RestAssured.baseURI = "https://dev-backend.synprointernal.com/graphql";
 		String query = "{\"query\":\"mutation login{\\nlogin(email: \\\"sweta.sharan@armentum.co\\\", password: \\\"123\\\"){\\nid\\ntoken\\n}\\n}\",\"variables\":null,\"operationName\":\"login\"}";
 
+		System.out.println("SynproApiResponseCode.getToken();");
+		
 		given().log().all().contentType("application/json").header("hostname", "predev.dev.synprointernal.com")
 				.body(query).when().log().all().post("https://dev-backend.synprointernal.com/graphql").then().log()
 				.all().assertThat().statusCode(200);
+		
 	}
-
 
 }

@@ -1,6 +1,7 @@
 package syndication.web;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +12,15 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
 //Importing log4j
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Cookie;
@@ -40,7 +48,6 @@ import com.github.seratch.jslack.api.webhook.WebhookResponse;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
 import atu.testrecorder.ATUTestRecorder;
 import atu.testrecorder.exceptions.ATUTestRecorderException;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -53,9 +60,6 @@ public class TestBase {
 	ExtentTest test;
 	// Logger variable
 	static final Logger logger = Logger.getLogger(TestBase.class.getName());
-	private static String urlSlackWebHook = "https://hooks.slack.com/services/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";
-	private static String channelName = "automation-report";
-	private static String botUserOAuthAccessToken = "xoxp-1417556211330-1569979863520-3062095825607-af06d62e419dea9d9a0efbfd7bb2764e";
 
 	// Variable for recording the video
 	private ATUTestRecorder recorder;
@@ -209,7 +213,6 @@ public class TestBase {
 						System.getProperty("user.dir") + "/test-output/Screenshots/" + result.getName() + ".png");
 				test.log(LogStatus.FAIL, result.getName(), image);
 				// test.log(LogStatus.FAIL,result.getThrowable());
-				sendTestExecutionStatusToSlack("Sending Report");
 			}
 			extent.endTest(test);
 
@@ -377,15 +380,41 @@ public class TestBase {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void sendTestExecutionStatusToSlack(String message) throws Exception {
+	public static void sendTestExecutionStatusToSlack(String message) throws Exception {
 		try {
 			StringBuilder messageBuider = new StringBuilder();
 			messageBuider.append(message);
-			Payload payload = Payload.builder().channel(channelName).text(messageBuider.toString()).build();
-			WebhookResponse webhookResponse = Slack.getInstance().send(urlSlackWebHook, payload);
+			Payload payload = Payload.builder().channel(TestData.CHANNEL_NAME).text(messageBuider.toString()).build();
+			WebhookResponse webhookResponse = Slack.getInstance().send(TestData.WEBHOOK_SLACK_PRIVACY_URL, payload);
 			webhookResponse.getMessage();
 		} catch (IOException e) {
-			System.out.println("Unexpected Error! WebHook:" + urlSlackWebHook);
+			System.out.println("Unexpected Error! WebHook:" + TestData.WEBHOOK_SLACK_PRIVACY_URL);
 		}
+	}
+
+	// TODO: need to refactor
+	public static void sendAutomationReportToSlack(File reportZipFile) throws IOException {
+		HttpClient client = HttpClientBuilder.create().build();
+
+		HttpPost post = new HttpPost(TestData.SLACK_URL);
+
+		post.addHeader("Authorization", TestData.SLACK_TOKEN);
+		InputStream inputStream = new FileInputStream(reportZipFile);
+
+		// FileBody fileBody = new FileBody(reportZipFile, ContentType.DEFAULT_BINARY);
+
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+		builder.addBinaryBody("file", inputStream, ContentType.create("application/zip"), reportZipFile.getName());
+		builder.addTextBody("channels", TestData.CHANNEL_NAME);
+		builder.addTextBody("filename", reportZipFile.getName());
+
+		HttpEntity entity = builder.build();
+
+		post.setEntity(entity);
+		HttpResponse response = client.execute(post);
+
+		System.out.println("Slack Response : " + response.getStatusLine().getStatusCode());
 	}
 }

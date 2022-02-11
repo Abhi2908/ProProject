@@ -70,7 +70,8 @@ public class TestData extends TestBase {
 	/**
 	 * Generate bugs report path for slack
 	 */	
-	public static final String SLACK_URL = "https://hooks.slack.com/services/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	";
-	public static final String SLACK_TOKEN = "xoxb-1417556211330-3087799714273-oItUj6BAz8fNevUJgTJiCQyc";
-	
+	public static final String SLACK_URL = "https://slack.com/api/files.upload";
+	public static final String SLACK_TOKEN = "Bearer xoxb-1417556211330-3087799714273-oItUj6BAz8fNevUJgTJiCQyc";
+	public static final String WEBHOOK_SLACK_PRIVACY_URL = "https://hooks.slack.com/services/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";
+	public static final String CHANNEL_NAME = "automation-report";
 }

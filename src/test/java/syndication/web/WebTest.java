@@ -71,7 +71,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Negative Use Case for Registration.
 	 */
-	@Test(priority=0)
+	//@Test(priority=0)
 	public void synProNegativeTestForRegistrationPage() {
 		try {
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));
@@ -89,7 +89,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Registration Successfully.
 	 */
-	@Test(priority=1)
+	//@Test(priority=1)
 	public void synProRegistrationPage() {
 		try {
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));
@@ -115,7 +115,7 @@ public class WebTest extends TestBase {
 	@Test(priority=2)
 	public void synProLoginAsSponsor() {
 		try {
-			apiResponse.userAdminConfigSetup();
+		//	apiResponse.userAdminConfigSetup();
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(props.getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.negativeScenarioForLoginPage(props.getProperty("SyndicationDevLoginPageUrl"));
@@ -134,12 +134,12 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Dash-board as sponsor.
 	 */
-	//@Test(priority=3)
+	@Test(priority=3)
 	public void synProDashboardAsSponsor() {
 		try {
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(props.getProperty("SyndicationDevLoginPageUrl"));
-			loginAsSponsor.loginPage();
+			//loginAsSponsor.loginPage();
 			dashboardAsSponsor.verifyDashboardKPI();
 			//dashboardAsSponsor.verifyLeadsEmail();
 			dashboardAsSponsor.verifyLeadsEdit();
@@ -162,7 +162,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Leads as sponsor.
 	 */
-	@Test(priority=4)
+	//@Test(priority=4)
 	public void synProLeadsAsSponsor() {
 		try {
 			loadUrl(props.getProperty("SyndicationDevPageUrl"), props.getProperty("SyndicationDevSitetitle"));

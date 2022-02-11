@@ -1,8 +1,7 @@
 package syndication.helpers;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 import org.apache.log4j.Logger;
+
 import syndication.pages.SynproCommonLocatorPage;
 import syndication.pages.SynproDashboardPage;
 import syndication.pages.SynproMyAccountInvestorPage;
