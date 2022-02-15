@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class SynproMyAccountInvestorPage {
 	
-	static final Logger LOGGER = Logger.getLogger(SynproMyAccountInvestorPage.class.getName());
+	static final Logger logger = Logger.getLogger(SynproMyAccountInvestorPage.class.getName());
 
 	/**
 	 * Syndication-Pro my account locators

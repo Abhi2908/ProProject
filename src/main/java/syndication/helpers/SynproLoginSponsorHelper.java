@@ -12,17 +12,14 @@ import syndication.web.TestData;
 
 public class SynproLoginSponsorHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproLoginSponsorHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproLoginSponsorHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproRegistrationPage registrationPage = new SynproRegistrationPage();
 	ReadFile read = new ReadFile();
 
 	// file path
-	static String emailFile = props.getProperty("EmailPath");
-	static String emailFilePath = (System.getProperty("user.dir") + emailFile);
-	static String passwordFile = props.getProperty("PasswordPath");
-	static String passwordFilePath = (System.getProperty("user.dir") + passwordFile);
+	
 	String Name = "Customer";
 	int row = 0;
 
@@ -31,7 +28,7 @@ public class SynproLoginSponsorHelper extends CommonUtils {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("static-access")
-	public void negativeScenarioForLoginPage(String sending_url) throws Exception {
+	public void negativeScenarioForLoginPage(String sending_url, String emailFilePath) throws Exception {
 
 		// wait to load page
 		waitForPageLoad();

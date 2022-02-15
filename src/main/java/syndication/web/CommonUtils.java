@@ -45,7 +45,7 @@ import com.github.javafaker.Faker;
 
 public class CommonUtils extends TestBase {
 
-	public static WebDriver driver;
+	static WebDriver driver;;
 	static final Logger logger = Logger.getLogger(CommonUtils.class.getName());
 	
 	private static XSSFSheet ExcelWSheet;
@@ -190,7 +190,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean waitForPresenceOfElement(By by) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.presenceOfElementLocated(by));
@@ -239,7 +239,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean waitForElementToBeClickable(By by) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.elementToBeClickable(by));
@@ -260,7 +260,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean waitForVisibilityOfAllElements(List<WebElement> checkbox) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.visibilityOfAllElements(checkbox));
@@ -281,7 +281,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean visibilityOfElementLocated(By by) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -302,7 +302,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean invisibilityOfElementLocated(By loader_locator) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.invisibilityOfElementLocated(loader_locator));
@@ -322,7 +322,7 @@ public class CommonUtils extends TestBase {
 	 * @param timeOutInSeconds
 	 */
 	public static void waitForBrowserPageToLoad() {
-		int objectTimeOutSeconds = Integer.parseInt(props.getProperty("DocumentReadyState"));
+		int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("DocumentReadyState"));
 		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver driver) {
 				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("Welcome");
@@ -351,6 +351,20 @@ public class CommonUtils extends TestBase {
 			driver.switchTo().window(childId);
 			driver.close();
 			driver.switchTo().window(parentId);
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+	
+	/**
+	 * @param
+	 * @return Method to get another window
+	 * 
+	 */
+	public static void getAnotherWindow(String URL) {
+		try {
+			driver.get(URL);
 		} catch (Exception e) {
 			logger.error(e);
 			assert (false);
@@ -652,7 +666,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static void waitForPageLoad() {
 		try {
-			int pageTimeOutSeconds = Integer.parseInt(props.getProperty("pageTimeOut")); // Wait time flows from
+			int pageTimeOutSeconds = Integer.parseInt(getProps().getProperty("pageTimeOut")); // Wait time flows from
 			// config.properties
 			driver.manage().timeouts().pageLoadTimeout(pageTimeOutSeconds, TimeUnit.SECONDS);
 
@@ -919,7 +933,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static void waitForDynamicLoad(By by, String objectClassName) {
 		try {
-			int MaxTimeWait = Integer.parseInt(props.getProperty("pageTimeOut"));
+			int MaxTimeWait = Integer.parseInt(getProps().getProperty("pageTimeOut"));
 			Instant current;
 			int _pollTimer = 2000;
 			Instant start = Instant.now();
@@ -1111,7 +1125,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static boolean iframeToBeAvailableAndSwitchToIt(By frame) {
 		try {
-			int objectTimeOutSeconds = Integer.parseInt(props.getProperty("objectTimeout"));
+			int objectTimeOutSeconds = Integer.parseInt(getProps().getProperty("objectTimeout"));
 
 			WebDriverWait waitDriver = new WebDriverWait(driver, objectTimeOutSeconds);
 			waitDriver.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));

@@ -8,7 +8,7 @@ import syndication.web.CommonUtils;
 
 public class SynproLogoutHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproLogoutHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproLogoutHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproDashboardPage dashboardPage = new SynproDashboardPage();

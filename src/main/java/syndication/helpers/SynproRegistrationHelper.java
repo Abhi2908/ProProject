@@ -12,17 +12,18 @@ import syndication.web.TestData;
 
 public class SynproRegistrationHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproRegistrationHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproRegistrationHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproRegistrationPage registrationPage = new SynproRegistrationPage();
 	ReadFile read = new ReadFile();
+	
+	
+	String emailFile = getProps().getProperty("EmailPath");
+	String emailFilePath = (System.getProperty("user.dir") + emailFile);
+	String passwordFile = getProps().getProperty("PasswordPath");
+	String passwordFilePath = (System.getProperty("user.dir") + passwordFile);
 
-	// file path
-	static String emailFile = props.getProperty("EmailPath");
-	static String emailFilePath = (System.getProperty("user.dir") + emailFile);
-	static String passwordFile = props.getProperty("PasswordPath");
-	static String passwordFilePath = (System.getProperty("user.dir") + passwordFile);
 	String Name = "Customer";
 	int row = 0;
 
@@ -35,15 +36,25 @@ public class SynproRegistrationHelper extends CommonUtils {
 
 		// wait to load page
 		waitForPageLoad();
+		try {
+			if (checkElementPresence(commonPage.common_clickable_button("Register Now to Invest"))) {
 
-		// Verifying the home page registration button
-		waitForElementToBeClickable(commonPage.common_clickable_button("Register Now to Invest"));
-		moveToWebElementAndClick(commonPage.common_clickable_button("Register Now to Invest"));
+				// Verifying the home page registration button
+				waitForElementToBeClickable(commonPage.common_clickable_button("Register Now to Invest"));
+				moveToWebElementAndClick(commonPage.common_clickable_button("Register Now to Invest"));
 
-		// verifying the registration page URL
-		verifyingLoadApplicationPageUrl(registrationUrl);
+				// verifying the registration page URL
+				verifyingLoadApplicationPageUrl(registrationUrl);
 
-		focusStop(2000);
+				logger.info("Register page visible after click on Register now button");
+				assert true;
+			} else {
+				logger.info("Register page not visible");
+				assert false;
+			}
+		} catch (Exception e) {
+			logger.error(e);
+		}
 
 		// wait until loading page
 		waitUntilLoadingPage("Email", commonPage.common_clickable_button("Email"));
@@ -55,7 +66,7 @@ public class SynproRegistrationHelper extends CommonUtils {
 		moveToWebElementAndClick(commonPage.common_clickable_button("Register"));
 
 		// assert error message for registration
-		assertString(textFromApplication(commonPage.common_clickable_button("")),
+		assertString(textFromApplication(commonPage.common_clickable_button("First Name is required")),
 				TestData.FIRST_NAME_ERROR_MSG);
 		assertString(textFromApplication(commonPage.common_clickable_button("Last Name is required")),
 				TestData.LAST_NAME_ERROR_MSG);
@@ -136,7 +147,7 @@ public class SynproRegistrationHelper extends CommonUtils {
 
 		// wait to load page
 		waitForPageLoad();
-		
+
 		// Verifying the home page registration button
 		waitForElementToBeClickable(commonPage.common_clickable_button("Register Now to Invest"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Register Now to Invest"));
@@ -184,9 +195,6 @@ public class SynproRegistrationHelper extends CommonUtils {
 		// click on register
 		waitForElementToBeClickable(commonPage.common_clickable_button("Register"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Register"));
-
-		// login existing
-		Thread.sleep(20000);
 
 		if (checkElementPresence(commonPage.common_clickable_button("User with this email already exists")) == true) {
 			// Login here

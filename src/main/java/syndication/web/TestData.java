@@ -1,11 +1,9 @@
 package syndication.web;
 
-import org.apache.log4j.Logger;
 import com.github.javafaker.Faker;
 
 public class TestData extends TestBase {
 
-	static final Logger LOGGER = Logger.getLogger(TestData.class.getName());
 	static Faker faker = new Faker();
 	
 	/**

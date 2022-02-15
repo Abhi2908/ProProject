@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class SynproDashboardSponsorHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproDashboardSponsorHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproDashboardSponsorHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproDashboardPage dashboardPage = new SynproDashboardPage();

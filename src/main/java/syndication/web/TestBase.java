@@ -71,8 +71,8 @@ public class TestBase {
 	// Declaring an object properties for the java class properties.
 	// This props will hold the details in the properties file
 	static ClassLoader loader = Thread.currentThread().getContextClassLoader();
-	protected static Properties props;
-	public static String browser, sessionID, jobID;;
+	private static Properties props;
+	public static String browser, sessionID, jobID;
 
 	/**
 	 * Create a setup method to run before start of every suite
@@ -92,12 +92,11 @@ public class TestBase {
 			 * screenRecordingFolder.mkdirs(); }
 			 */
 
-			// FileUtils.cleanDirectory(new File(System.getProperty("user.dir") +
-			// "/test-output/synproTestResult"));
+			FileUtils.cleanDirectory(new File(System.getProperty("user.dir") + "/test-output/synproTestResult"));
 			if (browser.equalsIgnoreCase("chrome")) {
 				extent = new ExtentReports(
 						System.getProperty("user.dir") + "/test-output/synproTestResult/SynProAutomationreport.html",
-						Boolean.TRUE);
+						false);
 				extent.addSystemInfo("Browser", browser);
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				extent = new ExtentReports(
@@ -126,7 +125,7 @@ public class TestBase {
 				DesiredCapabilities dc = new DesiredCapabilities();
 				dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 				driver = new ChromeDriver(options);
-				driver.manage().timeouts().implicitlyWait(Long.valueOf(props.getProperty("implicitwait")),
+				driver.manage().timeouts().implicitlyWait(Long.valueOf(getProps().getProperty("implicitwait")),
 						TimeUnit.SECONDS);
 
 //				DesiredCapabilities caps = DesiredCapabilities.chrome();
@@ -157,6 +156,7 @@ public class TestBase {
 			if (!recordingFolder.exists()) {
 				recordingFolder.mkdirs();
 			}
+
 			// Delete all previous videos and recordings
 			FileUtils.cleanDirectory(new File(System.getProperty("user.dir") + "/test-output/Recordings"));
 			FileUtils.cleanDirectory(new File(System.getProperty("user.dir") + "/test-output/Screenshots"));
@@ -166,6 +166,30 @@ public class TestBase {
 
 	}
 
+	/**
+	 * Before each test load the url
+	 * @param siteTitle
+	 */
+	public void loadUrl(String url, String siteTitle) {
+		try {
+			// Calling the url through the driver object
+			driver.manage().deleteAllCookies();
+			driver.get(url);
+			// Setting time out if the credentials fails
+			// Assert.assertEquals(siteTitle, driver.getTitle());
+			driver.switchTo().window(driver.getTitle());
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("window,focus()");
+		} catch (Exception e) {
+			logger.info(e.toString());
+		}
+
+	}
+	
+	/**
+	 * Method to start recording
+	 * @param siteTitle
+	 */
 	// @BeforeMethod
 	public void startRecording(String method) throws ATUTestRecorderException {
 
@@ -179,6 +203,11 @@ public class TestBase {
 
 	}
 
+
+	/**
+	 * Method to start take screenshot
+	 * @param siteTitle
+	 */
 	@AfterMethod
 	public void takescreenshotonfail(ITestResult result, Method method) throws IOException, ATUTestRecorderException {
 		try {
@@ -202,7 +231,7 @@ public class TestBase {
 				File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 				// result.getName() will return name of test case so that screenshot name will
 				// be same
-				String screenshotPath = props.getProperty("screenshotsPath") + result.getName() + ".png";
+				String screenshotPath = getProps().getProperty("screenshotsPath") + result.getName() + ".png";
 				FileUtils.copyFile(scrFile, new File((screenshotPath)));
 				logger.info("Screenshot taken" + result.getName());
 				// Add the screenshot to the report
@@ -221,28 +250,6 @@ public class TestBase {
 			logger.info(e.toString());
 			extent.endTest(test);
 		}
-	}
-
-	/**
-	 * Before each test load the url
-	 * 
-	 * @param url
-	 * @param siteTitle
-	 */
-	public void loadUrl(String url, String siteTitle) {
-		try {
-			// Calling the url through the driver object
-			driver.manage().deleteAllCookies();
-			driver.get(url);
-			// Setting time out if the credentials fails
-			// Assert.assertEquals(siteTitle, driver.getTitle());
-			driver.switchTo().window(driver.getTitle());
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("window,focus()");
-		} catch (Exception e) {
-			logger.info(e.toString());
-		}
-
 	}
 
 	/**
@@ -311,10 +318,10 @@ public class TestBase {
 	 */
 	public static void readPropFile() {
 		logger.info("Reading properties file");
-		props = new Properties();
+		setProps(new Properties());
 		InputStream stream = loader.getResourceAsStream("config.properties");
 		try {
-			props.load(stream);
+			getProps().load(stream);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -416,5 +423,13 @@ public class TestBase {
 		HttpResponse response = client.execute(post);
 
 		System.out.println("Slack Response : " + response.getStatusLine().getStatusCode());
+	}
+
+	public static Properties getProps() {
+		return props;
+	}
+
+	public static void setProps(Properties props) {
+		TestBase.props = props;
 	}
 }

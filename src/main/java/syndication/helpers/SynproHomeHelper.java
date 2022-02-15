@@ -5,7 +5,7 @@ import syndication.web.CommonUtils;
 
 public class SynproHomeHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproHomeHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproHomeHelper.class.getName());
 
 	/**
 	 * @param sending_url Verifying login URl and clicking on Buy Button

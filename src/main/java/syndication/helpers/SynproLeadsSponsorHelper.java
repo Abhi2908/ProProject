@@ -11,7 +11,7 @@ import syndication.web.TestData;
 
 public class SynproLeadsSponsorHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproLeadsSponsorHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproLeadsSponsorHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproRegistrationPage registrationPage = new SynproRegistrationPage();
@@ -45,7 +45,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		waitForPageLoad();
 
 		// Get Yop mail
-		driver.get(yopMail);
+		getAnotherWindow(yopMail);
 
 		// send email value
 		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.ADD_EMAIL);
@@ -55,7 +55,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		accessLink(leadsPage.create_arrow_login);
 
 		// Navigate back
-		driver.get(leadPage);
+		getAnotherWindow(leadPage);
 
 		// wait until loading page
 		waitUntilLoadingPage("Add Leads", commonPage.common_clickable_button("Add Leads"));
@@ -104,7 +104,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 	public void verifyInvitesOnEmail(String yopMail, String leadPage) throws Exception {
 
 		// Get Yop mail
-		driver.get(yopMail);
+		getAnotherWindow(yopMail);
 
 		// send email value
 		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.ADD_EMAIL);
@@ -135,7 +135,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		accessLink(leadsPage.delete_yopMail);
 
 		// Navigate back
-		driver.get(leadPage);
+		getAnotherWindow(leadPage);
 
 		// wait until loading page
 		waitUntilLoadingPage("Resend Invites", commonPage.common_clickable_button("Resend Invites"));

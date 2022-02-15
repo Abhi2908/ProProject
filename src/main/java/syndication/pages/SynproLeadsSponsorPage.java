@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class SynproLeadsSponsorPage {
 	
-	static final Logger LOGGER = Logger.getLogger(SynproLeadsSponsorPage.class.getName());
+	static final Logger logger = Logger.getLogger(SynproLeadsSponsorPage.class.getName());
 	
 	/**
 	 * Syndication-Pro login page locators

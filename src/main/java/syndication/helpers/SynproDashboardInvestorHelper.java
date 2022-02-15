@@ -10,7 +10,7 @@ import syndication.web.TestData;
 
 public class SynproDashboardInvestorHelper extends CommonUtils {
 
-	static final Logger LOGGER = Logger.getLogger(SynproDashboardInvestorHelper.class.getName());
+	static final Logger logger = Logger.getLogger(SynproDashboardInvestorHelper.class.getName());
 
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproDashboardPage dashboardPage = new SynproDashboardPage();
@@ -39,7 +39,7 @@ public class SynproDashboardInvestorHelper extends CommonUtils {
 		waitUntilLoadingPage("Welcome", commonPage.common_clickable_button("Welcome"));
 
 		// verifying the dash-board page URL
-		verifyingLoadApplicationPageUrl(dashboardInvestUrl);
+	//	verifyingLoadApplicationPageUrl(dashboardInvestUrl);
 
 		// Verifying and click on Start tour
 		waitForElementToBeClickable(commonPage.common_clickable_button("Start Tour"));

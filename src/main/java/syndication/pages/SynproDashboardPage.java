@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class SynproDashboardPage {
 	
-	static final Logger LOGGER = Logger.getLogger(SynproDashboardPage.class.getName());
+	static final Logger logger = Logger.getLogger(SynproDashboardPage.class.getName());
 
 	/**
 	 * Syndication-Pro login page locators

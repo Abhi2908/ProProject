@@ -7,7 +7,7 @@ import syndication.helpers.SynproApiResponseCode;
 
 public class SynproCommonLocatorPage {
 	
-	static final Logger LOGGER = Logger.getLogger(SynproCommonLocatorPage.class.getName());
+	static final Logger logger = Logger.getLogger(SynproCommonLocatorPage.class.getName());
 
 	/**
 	 * Syndication-Pro common page locators

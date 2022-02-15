@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 public class SynproRegistrationPage {
 	
 	
-	static final Logger LOGGER = Logger.getLogger(SynproRegistrationPage.class.getName());
+	static final Logger logger = Logger.getLogger(SynproRegistrationPage.class.getName());
 	/**
 	 * Syndication-Pro registration page locators
 	 */
