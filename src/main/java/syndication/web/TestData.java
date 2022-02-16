@@ -72,4 +72,12 @@ public class TestData extends TestBase {
 	public static final String SLACK_TOKEN = "Bearer xoxb-1417556211330-3087799714273-oItUj6BAz8fNevUJgTJiCQyc";
 	public static final String WEBHOOK_SLACK_PRIVACY_URL = "https://hooks.slack.com/services/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";
 	public static final String CHANNEL_NAME = "automation-report";
+	
+	/**
+	 * Api end points
+	 */
+	public static final String LOGIN_ENDPOINT = "{\"query\":\"mutation login{\\nlogin(email: \\\"sweta.sharan@armentum.co\\\", password: \\\"123\\\"){\\nid\\ntoken\\n}\\n}\",\"variables\":null,\"operationName\":\"login\"}";
+	public static final String ACTIVE_INVESTMENT_ENDPOINT = "{\"query\":\"query syndicatorDashboardMetrics {\\n  syndicatorDashboardMetrics {\\n    activeInvestmentAmount\\n    activeInvestmentsCount\\n    averageActiveInvestmentsAmount\\n    allUsersCount\\n    verifiedUsersCount\\n    unverifiedUsersCount\\n    investorsCount\\n    activeOfferingsCount\\n    closedOfferingsCount\\n    offeringInvestmentAmount\\n    reservationInvestmentAmount\\n    distributionAmount\\n  }\\n}\\n\",\"variables\":null,\"operationName\":\"syndicatorDashboardMetrics\"}";
+	
+	
 }

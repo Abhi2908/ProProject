@@ -23,12 +23,6 @@ public class WebTest extends TestBase {
 	
 	static final Logger logger = Logger.getLogger(WebTest.class.getName());
 
-//	String emailFile = props.getProperty("EmailPath");
-//	String emailFilePath = (System.getProperty("user.dir") + emailFile);
-//	String passwordFile = props.getProperty("PasswordPath");
-//	String passwordFilePath = (System.getProperty("user.dir") + passwordFile);
-	
-	
 	SynproHomeHelper landingHomePage;
 	SynproLoginSponsorHelper loginAsSponsor;
 	SynproDashboardSponsorHelper dashboardAsSponsor;
@@ -103,7 +97,7 @@ public class WebTest extends TestBase {
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
 			dashboardAsInvestor.verifyTourAsInvestor(getProps().getProperty("SyndicationDevInvestUrl"));
-			dashboardAsInvestor.verifyMyInfoPageAsInvestor(getProps().getProperty("SyndicationDevInvestorAccountUrl"));
+			dashboardAsInvestor.verifyAndUpdateMyInfoPageAsInvestor(getProps().getProperty("SyndicationDevInvestorAccountUrl"));
 			logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! User registration successfully!!");
 		} catch (Exception e) {
@@ -117,22 +111,38 @@ public class WebTest extends TestBase {
 	
 	
 	/**
-	 * Syndication-Pro test scenario : Verify login successfully as Sponsor with negative scenarios.
+	 * Syndication-Pro test scenario : Verify Negative Use Case for login page as Sponsor.
 	 */
-	//@Test(priority=2)
-	public void synProLoginAsSponsor() {
+	@Test(priority=2)
+	public void synProNegativeTestForLoginAsSponsor() {
 		try {
-			SynproApiResponseCode.userAdminConfigSetup();
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
-			loginAsSponsor.negativeScenarioForLoginPage(getProps().getProperty("EmailPath"), getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.negativeScenarioForLoginPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Negative test cases");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to Negative test cases");
+			Assert.fail(); 
+			assert (false);
+		}
+	}
+	
+	/**
+	 * Syndication-Pro test scenario : Verify login successfully as Sponsor.
+	 */
+	@Test(priority=3)
+	public void synProLoginAsSponsor() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
 			dashboardAsSponsor.verifyDashboardAsSponsor(getProps().getProperty("SyndicationDevDashboardUrl"), getProps().getProperty("SyndicationDevProductTourUrl"));
 			logoutScenario.logoutPage();
-			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified login page as Sponsor");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
-			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
+			test.log(LogStatus.FAIL, "Failed!! not able to login page as Sponsor");
 			Assert.fail(); 
 			assert (false);
 		}
@@ -141,13 +151,14 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Dash-board as sponsor.
 	 */
-	//@Test(priority=3)
+	@Test(priority=4)
 	public void synProDashboardAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
-			//loginAsSponsor.loginPage();
-			dashboardAsSponsor.verifyDashboardKPI();
+			loginAsSponsor.loginPage();
+			String str = SynproApiResponseCode.getActiveInvestmentAmount();
+			System.out.println(str);
 			//dashboardAsSponsor.verifyLeadsEmail();
 			dashboardAsSponsor.verifyLeadsEdit();
 			//dashboardAsSponsor.verifyLeadsNotes();
@@ -169,7 +180,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Leads as sponsor.
 	 */
-	//@Test(priority=4)
+	@Test(priority=5)
 	public void synProLeadsAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));

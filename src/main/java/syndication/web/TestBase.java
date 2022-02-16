@@ -295,8 +295,8 @@ public class TestBase {
 //			logger.info(response.asString());
 //			driver.quit();
 //			driver.close();
-//			extent.flush();
-			// extent.close();
+			extent.flush();
+			extent.close();
 		} catch (Exception e) {
 			logger.info(e.toString());
 		}

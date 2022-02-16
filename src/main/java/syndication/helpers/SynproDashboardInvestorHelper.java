@@ -41,58 +41,78 @@ public class SynproDashboardInvestorHelper extends CommonUtils {
 		// verifying the dash-board page URL
 	//	verifyingLoadApplicationPageUrl(dashboardInvestUrl);
 
+		focusStop(1000);
+		
 		// Verifying and click on Start tour
 		waitForElementToBeClickable(commonPage.common_clickable_button("Start Tour"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Start Tour"));
 
+		focusStop(1000);
+		
 		// click and verify Invest pop-up
-		waitUntilLoadingPage("Invest", commonPage.common_clickable_button("Invest"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify My Investments pop-up
-		waitUntilLoadingPage("My Investments", commonPage.common_clickable_button("My Investments"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Updates pop-up
-		waitUntilLoadingPage("Updates", commonPage.common_clickable_button("Updates"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Distributions pop-up
-		waitUntilLoadingPage("Distributions", commonPage.common_clickable_button("Distributions"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Documents pop-up
-		waitUntilLoadingPage("Documents", commonPage.common_clickable_button("Documents"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Profiles pop-up
-		waitUntilLoadingPage("Profiles", commonPage.common_clickable_button("Profiles"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Account pop-up
 		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// click and verify Sharing pop-up
-		waitUntilLoadingPage("Sharing", commonPage.common_clickable_button("Sharing"));
+		waitUntilLoadingPage("Next", commonPage.common_clickable_button("Next"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Next"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Next"));
 
+		focusStop(1000);
+		
 		// Close Tour and verify Email Subscription pop-up
-		waitUntilLoadingPage("Email Subscription", commonPage.common_clickable_button("Email Subscription"));
+		waitUntilLoadingPage("Close Tour", commonPage.common_clickable_button("Close Tour"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Close Tour"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Close Tour"));
 
 	}
 
-	public void verifyMyInfoPageAsInvestor(String investorAccountUrl) throws Exception {
+	public void verifyAndUpdateMyInfoPageAsInvestor(String investorAccountUrl) throws Exception {
 
 		// click and verify My info
 		waitUntilLoadingPage("My Info", commonPage.common_clickable_button("My Info"));

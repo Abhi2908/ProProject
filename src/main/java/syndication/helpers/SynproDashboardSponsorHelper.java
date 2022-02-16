@@ -1,18 +1,16 @@
 package syndication.helpers;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 
 import syndication.pages.SynproCommonLocatorPage;
 import syndication.pages.SynproDashboardPage;
 import syndication.web.CommonUtils;
 import syndication.web.TestData;
-import static io.restassured.RestAssured.given;
 
 public class SynproDashboardSponsorHelper extends CommonUtils {
 
 	static final Logger logger = Logger.getLogger(SynproDashboardSponsorHelper.class.getName());
-
+	
 	SynproCommonLocatorPage commonPage = new SynproCommonLocatorPage();
 	SynproDashboardPage dashboardPage = new SynproDashboardPage();
 
@@ -386,32 +384,5 @@ public class SynproDashboardSponsorHelper extends CommonUtils {
 
 	}
 	
-	static SynproApiResponseCode obj = new SynproApiResponseCode();
-	static JSONObject responseJson;
-	
-	/**
-	 * @param verify values
-	 * @throws Exception
-	 */
-	public void verifyDashboardKPI() throws Exception {
-
-		// https://dev-backend.synprointernal.com/graphql
-
-		// RestAssured.baseURI = "https://dev-backend.synprointernal.com/graphql";
-		// ";
-
-		// given().log().all().contentType("application/json").body(query).when().post("https://dev-backend.synprointernal.com/graphql").then().assertThat().statusCode(200);
-		// https://swapi-graphql.netlify.app/.netlify/functions/index
-
-	//	RestAssured.baseURI = "https://dev-backend.synprointernal.com/graphql";
-		String query = "{\"query\":\"mutation login{\\nlogin(email: \\\"sweta.sharan@armentum.co\\\", password: \\\"123\\\"){\\nid\\ntoken\\n}\\n}\",\"variables\":null,\"operationName\":\"login\"}";
-
-		System.out.println("SynproApiResponseCode.getToken();");
-		
-		given().log().all().contentType("application/json").header("hostname", "predev.dev.synprointernal.com")
-				.body(query).when().log().all().post("https://dev-backend.synprointernal.com/graphql").then().log()
-				.all().assertThat().statusCode(200);
-		
-	}
 
 }

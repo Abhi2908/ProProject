@@ -3,7 +3,7 @@
     <configuration>
         <!-- report theme -->
         <!-- standard, dark -->
-        <theme>standard</theme>
+        <theme>dark</theme>
     
         <!-- document encoding -->
         <!-- defaults to UTF-8 -->
@@ -14,17 +14,17 @@
         <protocol>https</protocol>
         
         <!-- title of the document -->
-        <documentTitle>Syndication web Test Results</documentTitle>
+        <documentTitle>SyndicationPro web Test Results</documentTitle>
         
         <!-- report name - displayed at top-nav -->
-        <reportName>Automation Report Syndication</reportName>
+        <reportName>Automation Report SyndicationPro</reportName>
         
         <!-- location of charts in the test view -->
         <!-- top, bottom -->
         <testViewChartLocation>top</testViewChartLocation>
         
         <!-- headline to tell the environment -->
-        <reportHeadline>IT environment</reportHeadline>
+        <reportHeadline>Cloud environment</reportHeadline>
         
         <!-- Provide the date of execution -->
         <dateformat>mm-dd-yyyy</dateformat>

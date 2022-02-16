@@ -19,7 +19,8 @@ public class SynproLoginSponsorHelper extends CommonUtils {
 	ReadFile read = new ReadFile();
 
 	// file path
-	
+	String emailFile = getProps().getProperty("EmailPath");
+	String emailFilePath = (System.getProperty("user.dir") + emailFile);
 	String Name = "Customer";
 	int row = 0;
 
@@ -28,7 +29,7 @@ public class SynproLoginSponsorHelper extends CommonUtils {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("static-access")
-	public void negativeScenarioForLoginPage(String sending_url, String emailFilePath) throws Exception {
+	public void negativeScenarioForLoginPage(String sending_url) throws Exception {
 
 		// wait to load page
 		waitForPageLoad();
