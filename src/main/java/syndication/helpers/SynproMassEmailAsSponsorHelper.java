@@ -53,7 +53,7 @@ public class SynproMassEmailAsSponsorHelper extends CommonUtils {
 		
 		// click email type and select value
 		waitForElementToBeClickable(massEmailPage.email_Type);
-		accessLink(massEmailPage.email_Type);
+		accessLink(massEmailPage.email_Type);;
 		accessLink(commonPage.common_clickable_button("New Investment Announcements"));
 
 		
