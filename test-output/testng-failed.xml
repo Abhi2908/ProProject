@@ -2,6 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [SyndicationWeb]">
   <parameter name="browser" value="chrome"/>
+  <listeners>
+    <listener class-name="utils.CustomReport"/>
+  </listeners>
   <test name="Syndication Regression(failed)">
     <classes>
       <class name="syndication.web.WebTest">
@@ -12,7 +15,7 @@
           <include name="beforeMethodSetup"/>
           <include name="closeAllWindows"/>
           <include name="startDrivers"/>
-          <include name="synProNegativeTestForRegistrationPage"/>
+          <include name="synProMassEmailAsSponsor"/>
         </methods>
       </class> <!-- syndication.web.WebTest -->
     </classes>

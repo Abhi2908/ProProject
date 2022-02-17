@@ -2,13 +2,16 @@ package syndication.web;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import com.relevantcodes.extentreports.LogStatus;
+
 import atu.testrecorder.exceptions.ATUTestRecorderException;
 import syndication.helpers.SynproApiResponseCode;
 import syndication.helpers.SynproDashboardInvestorHelper;
@@ -17,6 +20,7 @@ import syndication.helpers.SynproHomeHelper;
 import syndication.helpers.SynproLeadsSponsorHelper;
 import syndication.helpers.SynproLoginSponsorHelper;
 import syndication.helpers.SynproLogoutHelper;
+import syndication.helpers.SynproMassEmailAsSponsorHelper;
 import syndication.helpers.SynproRegistrationHelper;
 
 public class WebTest extends TestBase {
@@ -31,6 +35,7 @@ public class WebTest extends TestBase {
 	SynproDashboardInvestorHelper dashboardAsInvestor;
 	SynproLogoutHelper logoutScenario;
 	SynproApiResponseCode apiResponse;
+	SynproMassEmailAsSponsorHelper massEmail;
 	
 	@BeforeSuite
 	@Parameters("browser")
@@ -45,6 +50,7 @@ public class WebTest extends TestBase {
 		logoutScenario = new SynproLogoutHelper();
 		dashboardAsInvestor = new SynproDashboardInvestorHelper();
 		apiResponse = new SynproApiResponseCode();
+		massEmail = new SynproMassEmailAsSponsorHelper();
 	}
 
 	@BeforeMethod
@@ -67,7 +73,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Negative Use Case for Registration.
 	 */
-	@Test(priority=0)
+	//@Test(priority=0)
 	public void synProNegativeTestForRegistrationPage() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -90,7 +96,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Registration Successfully.
 	 */
-	@Test(priority=1)
+	//@Test(priority=1)
 	public void synProRegistrationPage() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -113,7 +119,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Negative Use Case for login page as Sponsor.
 	 */
-	@Test(priority=2)
+	//@Test(priority=2)
 	public void synProNegativeTestForLoginAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -131,7 +137,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify login successfully as Sponsor.
 	 */
-	@Test(priority=3)
+	//@Test(priority=3)
 	public void synProLoginAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -151,7 +157,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Dash-board as sponsor.
 	 */
-	@Test(priority=4)
+	//@Test(priority=4)
 	public void synProDashboardAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -180,7 +186,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Leads as sponsor.
 	 */
-	@Test(priority=5)
+	//@Test(priority=5)
 	public void synProLeadsAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -194,6 +200,27 @@ public class WebTest extends TestBase {
 			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevLeadsUrl"));
 			leadsAsSponsor.verifyLeadTitles();
 			logoutScenario.logoutPage();
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Leads Page");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to Verified Leads page");
+			Assert.fail(); 
+			assert (false);
+		}
+	}
+	
+	/**
+	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
+	 */
+	@Test(priority=5)
+	public void synProMassEmailAsSponsor() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.loginPage();
+			massEmail.massAsSendEmail(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			massEmail.createTemplate();
+			//logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
@@ -202,5 +229,5 @@ public class WebTest extends TestBase {
 			assert (false);
 		}
 	}
-	
+
 }

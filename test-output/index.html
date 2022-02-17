@@ -24,7 +24,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -38,7 +38,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-SyndicationWeb">
-              <span class="suite-name border-failed">SyndicationWeb</span>
+              <span class="suite-name border-passed">SyndicationWeb</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -91,21 +91,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods, 1 failed,   1 passed</span>
-                  </li>
-                  <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-SyndicationWeb" class="hide-methods failed suite-SyndicationWeb"> (hide)</a> <!-- hide-methods failed suite-SyndicationWeb -->
-                      <a href="#" panel-name="suite-SyndicationWeb" class="show-methods failed suite-SyndicationWeb"> (show)</a> <!-- show-methods failed suite-SyndicationWeb -->
-                    </span>
-                    <div class="method-list-content failed suite-SyndicationWeb">
-                      <span>
-                        <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-SyndicationWeb" title="syndication.web.WebTest" hash-for-method="synProNegativeTestForRegistrationPage">synProNegativeTestForRegistrationPage</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content failed suite-SyndicationWeb -->
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -116,7 +102,7 @@
                     <div class="method-list-content passed suite-SyndicationWeb">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-SyndicationWeb" title="syndication.web.WebTest" hash-for-method="synProLoginAsSponsor">synProLoginAsSponsor</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-SyndicationWeb" title="syndication.web.WebTest" hash-for-method="synProMassEmailAsSponsor">synProMassEmailAsSponsor</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-SyndicationWeb -->
@@ -131,58 +117,6 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-SyndicationWeb" class="panel SyndicationWeb">
-          <div class="suite-SyndicationWeb-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">syndication.web.WebTest</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="synProNegativeTestForRegistrationPage">
-                  </a> <!-- synProNegativeTestForRegistrationPage -->
-                  <span class="method-name">synProNegativeTestForRegistrationPage</span>
-                  <div class="stack-trace">java.lang.AssertionError: expected [First Name is required] but found [Sign Up to View Opportunities
-First Name
-First Name is required
-Last Name
-Last Name is required
-Email
-Email is required
-Phone Number
-Phone number is required
-Residency
-Enter Residency
-State is required
-I am looking to invest
-Select
-Investment Capacity is required
-Are you anaccredited investor?
-Select
-Accredited Investor is required
-How did you hear about us?
-How did you hear about us is required
-Create Password
-Password is required
-Confirm Password
-Confirm Password is required
-Captcha Verification is required
-Please accept terms and conditions
-I have reviewed and agree to the
-Terms of Service
-and
-Privacy Policy
-Register
-Already have an account?  Login here]
-	at syndication.web.CommonUtils.assertString(CommonUtils.java:958)
-	at syndication.helpers.SynproRegistrationHelper.negativeTestScenarioRegistrationAsInvestor(SynproRegistrationHelper.java:58)
-	at syndication.web.WebTest.synProNegativeTestForRegistrationPage(WebTest.java:79)
-... Removed 31 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-SyndicationWeb-class-failed -->
           <div class="suite-SyndicationWeb-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -191,9 +125,9 @@ Already have an account?  Login here]
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="synProLoginAsSponsor">
-                  </a> <!-- synProLoginAsSponsor -->
-                  <span class="method-name">synProLoginAsSponsor</span>
+                  <a name="synProMassEmailAsSponsor">
+                  </a> <!-- synProMassEmailAsSponsor -->
+                  <span class="method-name">synProMassEmailAsSponsor</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -201,7 +135,7 @@ Already have an account?  Login here]
         </div> <!-- panel SyndicationWeb -->
         <div panel-name="test-xml-SyndicationWeb" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/home/abhishek/eclipse-workspace/syndication.web.project/chromeSuite.xml</span>
+            <span class="header-content">/home/abhishek/git/SyndicationProRepository/syndication.web.project/chromeSuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -209,6 +143,9 @@ Already have an account?  Login here]
 &lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;SyndicationWeb&quot;&gt;
   &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+  &lt;listeners&gt;
+    &lt;listener class-name=&quot;utils.CustomReport&quot;/&gt;
+  &lt;/listeners&gt;
   &lt;test name=&quot;Syndication Regression&quot;&gt;
     &lt;classes&gt;
       &lt;class name=&quot;syndication.web.WebTest&quot;/&gt;
@@ -251,20 +188,16 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'synProNegativeTestForRegistrationPage')
+data.setCell(0, 1, 'synProMassEmailAsSponsor')
 data.setCell(0, 2, 'syndication.web.WebTest')
-data.setCell(0, 3, 12165);
-data.setCell(1, 0, 1)
-data.setCell(1, 1, 'synProLoginAsSponsor')
-data.setCell(1, 2, 'syndication.web.WebTest')
-data.setCell(1, 3, 5518);
+data.setCell(0, 3, 34616);
 window.suiteTableData['SyndicationWeb']= { tableData: data, tableDiv: 'times-div-SyndicationWeb'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 17 seconds</span>
+              <span class="suite-total-time">Total running time: 34 seconds</span>
               <div id="times-div-SyndicationWeb">
               </div> <!-- times-div-SyndicationWeb -->
             </div> <!-- times-div -->
@@ -297,41 +230,27 @@ return data;
               </div> <!-- configuration-suite before -->
               <div class="configuration-suite before">
                 <span class="method-name">setup(chrome)</span>
-                <span class="method-start">14 ms</span>
+                <span class="method-start">11 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-method before">
-                <span class="method-name">beforeMethodSetup(public void syndication.web.WebTest.synProNegativeTestForRegistrationPage())</span>
-                <span class="method-start">1559 ms</span>
+                <span class="method-name">beforeMethodSetup(public void syndication.web.WebTest.synProMassEmailAsSponsor())</span>
+                <span class="method-start">1384 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">synProNegativeTestForRegistrationPage</span>
-                <span class="method-start">1706 ms</span>
+                <span class="method-name">synProMassEmailAsSponsor</span>
+                <span class="method-start">1502 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">takescreenshotonfail([TestResult name=synProNegativeTestForRegistrationPage status=FAILURE method=WebTest.synProNegativeT...)</span>
-                <span class="method-start">13875 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="configuration-method before">
-                <span class="method-name">beforeMethodSetup(public void syndication.web.WebTest.synProLoginAsSponsor())</span>
-                <span class="method-start">17179 ms</span>
-              </div> <!-- configuration-method before -->
-              <div class="test-method">
-                <span class="method-name">synProLoginAsSponsor</span>
-                <span class="method-start">17187 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">takescreenshotonfail([TestResult name=synProLoginAsSponsor status=SUCCESS method=WebTest.synProLoginAsSponsor()[pri:2, in...)</span>
-                <span class="method-start">22706 ms</span>
+                <span class="method-name">takescreenshotonfail([TestResult name=synProMassEmailAsSponsor status=SUCCESS method=WebTest.synProMassEmailAsSponsor()[p...)</span>
+                <span class="method-start">36121 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-test after">
                 <span class="method-name">closeAllWindows</span>
-                <span class="method-start">24729 ms</span>
+                <span class="method-start">38144 ms</span>
               </div> <!-- configuration-test after -->
               <div class="configuration-suite after">
                 <span class="method-name">quitDrivers</span>
-                <span class="method-start">24921 ms</span>
+                <span class="method-start">38339 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

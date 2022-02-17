@@ -5,8 +5,13 @@
     <classes>
       <class name="syndication.web.WebTest">
         <methods>
-          <include name="syndicationLoginAsSponsor"/>
+          <include name="synProLeadsAsSponsor"/>
+          <include name="synProDashboardAsSponsor"/>
+          <include name="synProRegistrationPage"/>
           <include name="startDrivers"/>
+          <include name="synProNegativeTestForLoginAsSponsor"/>
+          <include name="synProLoginAsSponsor"/>
+          <include name="synProNegativeTestForRegistrationPage"/>
         </methods>
       </class> <!-- syndication.web.WebTest -->
     </classes>
