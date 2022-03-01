@@ -37,6 +37,7 @@ public class WebTest extends TestBase {
 	SynproApiResponseCode apiResponse;
 	SynproMassEmailAsSponsorHelper massEmail;
 	
+	
 	@BeforeSuite
 	@Parameters("browser")
 	public void setup(String browser) throws IOException {
@@ -212,14 +213,18 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	@Test(priority=5)
+	@Test(priority=6)
 	public void synProMassEmailAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
-			massEmail.massAsSendEmail(getProps().getProperty("SyndicationDevMassEmailUrl"));
-			massEmail.createTemplate();
+			massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			massEmail.selectColumn();
+			massEmail.scheduleToSendAndVerify();
+			massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			massEmail.selectColumn();
+			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevMassEmailUrl"));
 			//logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
 		} catch (Exception e) {

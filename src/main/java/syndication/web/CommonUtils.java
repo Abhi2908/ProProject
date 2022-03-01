@@ -3,6 +3,7 @@ package syndication.web;
 import static org.testng.AssertJUnit.assertTrue;
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,16 +24,19 @@ import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.mozilla.javascript.JavaScriptException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,7 +51,7 @@ public class CommonUtils extends TestBase {
 
 	static WebDriver driver;;
 	static final Logger logger = Logger.getLogger(CommonUtils.class.getName());
-	
+
 	private static XSSFSheet ExcelWSheet;
 	private static XSSFWorkbook ExcelWBook;
 	private static XSSFCell Cell;
@@ -56,19 +60,18 @@ public class CommonUtils extends TestBase {
 		this.driver = GetDriver.getDriver();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	/**
 	 * @param by
 	 * @return Open the Excel file
 	 */
-	public static void setExcelFile(String Path,String SheetName) throws Exception {
+	public static void setExcelFile(String Path, String SheetName) throws Exception {
 		try {
-		
+
 			FileInputStream ExcelFile = new FileInputStream(Path);
 			ExcelWBook = new XSSFWorkbook(ExcelFile);
 			ExcelWSheet = ExcelWBook.getSheet(SheetName);
-		} catch (Exception e){
+		} catch (Exception e) {
 			throw (e);
 		}
 	}
@@ -77,54 +80,48 @@ public class CommonUtils extends TestBase {
 	 * @param by
 	 * @return Access the required test data sheet
 	 */
-	public static Object[][] getTableArray(String FilePath, String SheetName, int iTestCaseRow) throws Exception
-	{   
+	public static Object[][] getTableArray(String FilePath, String SheetName, int iTestCaseRow) throws Exception {
 		String[][] tabArray = null;
-		try{
+		try {
 			FileInputStream ExcelFile = new FileInputStream(FilePath);
 			// Access the required test data sheet
 			ExcelWBook = new XSSFWorkbook(ExcelFile);
 			ExcelWSheet = ExcelWBook.getSheet(SheetName);
 			int startCol = 1;
-			int ci=0,cj=0;
+			int ci = 0, cj = 0;
 			int totalRows = 1;
 			int totalCols = 2;
-			tabArray=new String[totalRows][totalCols];
-			for (int j=startCol;j<=totalCols;j++, cj++)
-			{
-				tabArray[ci][cj]=getCellData(iTestCaseRow,j);
+			tabArray = new String[totalRows][totalCols];
+			for (int j = startCol; j <= totalCols; j++, cj++) {
+				tabArray[ci][cj] = getCellData(iTestCaseRow, j);
 				logger.info(tabArray[ci][cj]);
 			}
-		}
-		catch (FileNotFoundException e)
-		{
+		} catch (FileNotFoundException e) {
+			logger.info("Could not read the Excel sheet");
+			logger.info(e.toString());
+		} catch (IOException e) {
 			logger.info("Could not read the Excel sheet");
 			logger.info(e.toString());
 		}
-		catch (IOException e)
-		{
-			logger.info("Could not read the Excel sheet");
-			logger.info(e.toString());
-		}
-		return(tabArray);
+		return (tabArray);
 	}
 
 	/**
 	 * @param by
-	 * @return This method is to read the test data from the Excel cell, in this we are passing parameters as Row num and Col num
+	 * @return This method is to read the test data from the Excel cell, in this we
+	 *         are passing parameters as Row num and Col num
 	 */
-	public static String getCellData(int RowNum, int ColNum) throws Exception{
-		try{
+	public static String getCellData(int RowNum, int ColNum) throws Exception {
+		try {
 			Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
 			String CellData = Cell.getStringCellValue();
 			return CellData;
-		}catch (Exception e){
+		} catch (Exception e) {
 			logger.info(e.toString());
-			return"";
+			return "";
 		}
 	}
-	
-	
+
 	/**
 	 * @param by
 	 * @return clicking on link using java script
@@ -336,7 +333,6 @@ public class CommonUtils extends TestBase {
 		}
 	}
 
-
 	/**
 	 * @param
 	 * @return Method to close current window
@@ -356,7 +352,7 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * @param
 	 * @return Method to get another window
@@ -370,23 +366,22 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * Handling windows with window handler
+	 * 
 	 * @param windows
 	 */
 	public void switchFirstWindowAndSelectFirstTwoLocation() {
 
-		
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		// actions
-		
-		
+
 		driver.switchTo().window(tabs2.get(0));
 
 	}
-	
+
 	/**
 	 * @param
 	 * @return Method switch To Window
@@ -434,11 +429,10 @@ public class CommonUtils extends TestBase {
 	}
 
 	/**
-	 * @param entered values
+	 * @param entered        values
 	 * @param expectedObject storing values in string array
 	 */
-	public static List<String> gettingObjectsInStringArray(String[] entered_values,
-			List<String> expectedObject) {
+	public static List<String> gettingObjectsInStringArray(String[] entered_values, List<String> expectedObject) {
 
 		String[] lengths = entered_values;
 		for (int i = 0; i < lengths.length; i++) {
@@ -459,29 +453,31 @@ public class CommonUtils extends TestBase {
 		}
 		return actualObject;
 	}
-	
+
 	/**
 	 * return a match string from list and click
+	 * 
 	 * @param list of web elements
 	 */
 	public static void matchStringFromListAndClick(By by, String value) {
-		
-		List<WebElement> columVal =  driver.findElements(by);
 
-		System.out.println("Size of the contents in the column state is : " +columVal.size());
+		List<WebElement> columVal = driver.findElements(by);
 
-	    for(int i=0;i<columVal.size();i++){
-	        System.out.println("Content text is : " + columVal.get(i).getText());
-	        // match the content here in the if loop
-	        if(columVal.get(i).getText().equals(value)){
-	            // perform action
-	            columVal.get(i).click();
-	        }
-	    }
+		System.out.println("Size of the contents in the column state is : " + columVal.size());
+
+		for (int i = 0; i < columVal.size(); i++) {
+			System.out.println("Content text is : " + columVal.get(i).getText());
+			// match the content here in the if loop
+			if (columVal.get(i).getText().equals(value)) {
+				// perform action
+				columVal.get(i).click();
+			}
+		}
 	}
 
 	/**
 	 * return a list and lick elements text
+	 * 
 	 * @param list of web elements
 	 * @return
 	 */
@@ -494,10 +490,11 @@ public class CommonUtils extends TestBase {
 		}
 		return elemTexts;
 	}
-	
+
 	/**
 	 * Extracts text from list of elements matching the provided locator into new
 	 * List<String>
+	 * 
 	 * @param locator
 	 * @return list of strings
 	 */
@@ -538,13 +535,12 @@ public class CommonUtils extends TestBase {
 	 */
 	public static void verifyElementNotDisplayed(By by) {
 		try {
-			Assert.assertFalse(driver.findElement(by).isDisplayed(),
-					"Element should not be visible: " + by);
+			Assert.assertFalse(driver.findElement(by).isDisplayed(), "Element should not be visible: " + by);
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @param actualObject
 	 * @param expectedObject verifying two array list
@@ -597,7 +593,7 @@ public class CommonUtils extends TestBase {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Waits for element to be not stale
 	 *
@@ -705,7 +701,7 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * @param by
 	 * @param object Method to wait and enter text in a text field
@@ -716,7 +712,7 @@ public class CommonUtils extends TestBase {
 			visibilityOfElementLocated(by);
 			Thread.sleep(2000);
 			visibilityOfElementLocated(by);
-			driver.findElement(by).sendKeys(Keys.HOME,Keys.chord(Keys.SHIFT,Keys.END),value);
+			driver.findElement(by).sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), value);
 			logger.info("Object found success " + by.toString() + " and entered the value " + value);
 			waitForPageLoad();
 		} catch (Exception e) {
@@ -763,6 +759,17 @@ public class CommonUtils extends TestBase {
 		WebElement el = driver.findElement(element);
 		action.moveToElement(el).sendKeys(Keys.PAGE_UP).perform();
 	}
+	
+	/**
+	 * @param scroll up
+	 * @return
+	 */
+	public static void actionsMouseClick(By element) {
+
+		Actions action = new Actions(driver);
+		WebElement el = driver.findElement(element);
+		action.click(el).build().perform();
+	}
 
 	/**
 	 * @param scroll down
@@ -805,10 +812,168 @@ public class CommonUtils extends TestBase {
 	}
 
 	/**
-	 * @param Method to select an option from dropdown
+	 * @param Method to drag and drop
+	 */
+	public static void dragAndDrop(By from, By to) {
+		try {
+			// Element which needs to drag.
+			WebElement From = driver.findElement(from);
+
+			// Element on which need to drop.
+			WebElement To = driver.findElement(to);
+
+			// Using Action class for drag and drop.
+			Actions act = new Actions(driver);
+
+			// Dragged and dropped.
+			act.dragAndDrop(From, To).build().perform();
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+
+	/**
+	 * @param Method to drag and drop
+	 */
+	public static void dragAndDropUsingJavaScriptExecutor(By from, By to) {
+		try {
+
+//			WebElement LocatorFrom = driver.findElement(from);
+//			   WebElement LocatorTo = driver.findElement(to);
+//			 JavascriptExecutor js = (JavascriptExecutor)driver;
+//			 
+//			   String xto=Integer.toString(LocatorTo.getLocation().x);
+//			   String yto=Integer.toString(LocatorTo.getLocation().y);
+//				
+//			   
+//			  js.executeScript("function simulate(f,c,d,e){var b,a=null;for(b in eventMatchers)if(eventMatchers[b].test(c)){a=b;break}if(!a)return!1;document.createEvent?(b=document.createEvent(a),a==\"HTMLEvents\"?b.initEvent(c,!0,!0):b.initMouseEvent(c,!0,!0,document.defaultView,0,d,e,d,e,!1,!1,!1,!1,0,null),f.dispatchEvent(b)):(a=document.createEventObject(),a.detail=0,a.screenX=d,a.screenY=e,a.clientX=d,a.clientY=e,a.ctrlKey=!1,a.altKey=!1,a.shiftKey=!1,a.metaKey=!1,a.button=1,f.fireEvent(\"on\"+c,a));return!0} var eventMatchers={HTMLEvents:/^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,MouseEvents:/^(?:click|dblclick|mouse(?:down|up|over|move|out))$/}; " +
+//						"simulate(arguments[0],\"mousedown\",0,0); simulate(arguments[0],\"mousemove\",arguments[1],arguments[2]); simulate(arguments[0],\"mouseup\",arguments[1],arguments[2]); ",
+//						LocatorFrom,xto,yto);
+			Thread.sleep(1500);
+			WebElement LocatorFrom = driver.findElement(from);
+			   WebElement LocatorTo = driver.findElement(to);
+			   JavascriptExecutor js = (JavascriptExecutor)driver;
+			   js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
+			                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
+			                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
+			                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
+			                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
+			                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
+			                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
+			                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
+			                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
+			                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
+			                + "var dropEvent = createEvent('drop');\n"
+			                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
+			                + "var dragEndEvent = createEvent('dragend');\n"
+			                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
+			                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
+			                + "simulateHTML5DragAndDrop(source,destination);", LocatorFrom, LocatorTo);
+				
+			Thread.sleep(1500);
+
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+
+	/**
+	 * @param Method to drag and drop
+	 */
+	public static void dragAndDropUsingRobot(By from, By to) {
+		try {
+
+			// Element which needs to drag.
+			WebElement From = driver.findElement(from);
+
+			// Element on which need to drop.
+			WebElement To = driver.findElement(to);
+
+			Point coordinates1 = From.getLocation();
+			Point coordinates2 = To.getLocation();
+			Robot robot = new Robot();
+			robot.mouseMove(coordinates1.getX(), coordinates1.getY());
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			robot.mouseMove(coordinates2.getX(), coordinates2.getY());
+			robot.mouseRelease(InputEvent.BUTTON1_MASK);
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+
+	/**
+	 * @param Method to drag and drop
+	 */
+	public static void dragAndDropClickHoldRelease(By from, By to) {
+		try {
+			// Element which needs to drag.
+			WebElement From = driver.findElement(from);
+
+			// Element on which need to drop.
+			WebElement To = driver.findElement(to);
+
+			// Using Action class for drag and drop.
+			Actions builder = new Actions(driver);
+
+			Action dragAndDrop = builder.clickAndHold(From).moveToElement(To).release(To).build();
+			dragAndDrop.perform();
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+	
+	
+	/**
+	 * @param Method to drag and drop
+	 */
+	public static void dragAndDropXandYaxis(By from, By to) {
+		try {
+			// Actions class method to drag and drop
+			Actions builder = new Actions(driver);
+
+			WebElement From = driver.findElement(from);
+
+			WebElement To = driver.findElement(to);
+
+			// Here, getting x and y offset to drop source object on target object location
+			// First, get x and y offset for from object
+			int xOffset1 = From.getLocation().getX();
+
+			int yOffset1 = From.getLocation().getY();
+
+			System.out.println("xOffset1--->" + xOffset1 + " yOffset1--->" + yOffset1);
+
+			// Secondly, get x and y offset for to object
+			int xOffset = To.getLocation().getX();
+
+			int yOffset = To.getLocation().getY();
+
+			System.out.println("xOffset--->" + xOffset + " yOffset--->" + yOffset);
+
+			// Find the xOffset and yOffset difference to find x and y offset needed in
+			// which from object required to dragged and dropped
+			xOffset = (xOffset - xOffset1) + 10;
+			yOffset = (yOffset - yOffset1) + 20;
+
+			// Perform dragAndDropBy
+			builder.dragAndDropBy(From, xOffset, yOffset).perform();
+
+		} catch (Exception e) {
+			logger.error(e);
+			assert (false);
+		}
+	}
+
+	/**
+	 * @param Method to select an option from drop down
 	 */
 	public static void waitFindSelect(By by, String option) {
 		try {
+			
 			Select dropdown = new Select(driver.findElement(by));
 			dropdown.selectByVisibleText(option);
 			logger.info("Object selected " + option + " successfully" + by.toString());
@@ -818,7 +983,7 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-
+	
 	/**
 	 * @param promo_weekend_checkbox selected element get unselected
 	 * @return
@@ -1116,7 +1281,6 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
 
 	/**
 	 * @param first_frame

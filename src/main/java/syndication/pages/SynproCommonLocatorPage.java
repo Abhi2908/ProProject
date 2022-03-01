@@ -3,8 +3,6 @@ package syndication.pages;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
-import syndication.helpers.SynproApiResponseCode;
-
 public class SynproCommonLocatorPage {
 	
 	static final Logger logger = Logger.getLogger(SynproCommonLocatorPage.class.getName());
@@ -56,8 +54,6 @@ public class SynproCommonLocatorPage {
 		return webElement;
 	}
 	
-	
-
 	public By assert_responsiveTableValues(String select_name) {
 		By webElement = By.xpath("//*[@class=\" responsiveTable\"]//*[contains(text(),\"" + select_name + "\")]");
 		return webElement;

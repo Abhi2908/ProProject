@@ -83,5 +83,6 @@ public class TestData extends TestBase {
 	 * Api end points
 	 */
 	public static final String MASS_EMAIL_NAME = "Automation Mass Email";
+	public static final String SCHEDULED_TIME = "Scheduled";
 	
 }
