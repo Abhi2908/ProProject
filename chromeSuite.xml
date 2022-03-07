@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="SyndicationWeb">
 	<parameter name="browser" value="chrome"/>
-	<listeners>
+ 	  <listeners>
 		<listener class-name="utils.CustomReport" />
-	</listeners>
+	</listeners>  
 	<test name="Syndication Regression">
 		<classes>
 			<class name="syndication.web.WebTest" />

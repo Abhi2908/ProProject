@@ -168,6 +168,7 @@ public class TestBase {
 
 	/**
 	 * Before each test load the url
+	 * 
 	 * @param siteTitle
 	 */
 	public void loadUrl(String url, String siteTitle) {
@@ -185,9 +186,10 @@ public class TestBase {
 		}
 
 	}
-	
+
 	/**
 	 * Method to start recording
+	 * 
 	 * @param siteTitle
 	 */
 	// @BeforeMethod
@@ -203,9 +205,9 @@ public class TestBase {
 
 	}
 
-
 	/**
 	 * Method to start take screenshot
+	 * 
 	 * @param siteTitle
 	 */
 	@AfterMethod
@@ -330,7 +332,6 @@ public class TestBase {
 
 	/**
 	 * To rename the extension of the file
-	 * 
 	 * @param source
 	 * @param newExtension
 	 * @return

@@ -21,7 +21,7 @@ public class SynproLogoutHelper extends CommonUtils {
 
 		waitForPageLoad();
 
-		focusStop(2000);
+		focusStop(10000);
 		
 		// log out
 		accessLink(commonPage.common_clickable_button("Log Out"));

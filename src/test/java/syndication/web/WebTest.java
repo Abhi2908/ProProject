@@ -24,7 +24,7 @@ import syndication.helpers.SynproMassEmailAsSponsorHelper;
 import syndication.helpers.SynproRegistrationHelper;
 
 public class WebTest extends TestBase {
-	
+
 	static final Logger logger = Logger.getLogger(WebTest.class.getName());
 
 	SynproHomeHelper landingHomePage;
@@ -36,13 +36,12 @@ public class WebTest extends TestBase {
 	SynproLogoutHelper logoutScenario;
 	SynproApiResponseCode apiResponse;
 	SynproMassEmailAsSponsorHelper massEmail;
-	
-	
+
 	@BeforeSuite
 	@Parameters("browser")
 	public void setup(String browser) throws IOException {
 		super.setup(browser);
-		
+
 		landingHomePage = new SynproHomeHelper();
 		loginAsSponsor = new SynproLoginSponsorHelper();
 		dashboardAsSponsor = new SynproDashboardSponsorHelper();
@@ -59,7 +58,7 @@ public class WebTest extends TestBase {
 		test = extent.startTest(method.getName().toString());
 		test.assignCategory(browser);
 		try {
-			//String browserName = CommonUtils.getBrowserDetails();
+			// String browserName = CommonUtils.getBrowserDetails();
 			startRecording(method.getName().toString());
 
 		} catch (ATUTestRecorderException e) {
@@ -68,13 +67,12 @@ public class WebTest extends TestBase {
 		}
 	}
 
-	
 	// *************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify Negative Use Case for Registration.
 	 */
-	//@Test(priority=0)
+	// @Test(priority=0)
 	public void synProNegativeTestForRegistrationPage() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -85,42 +83,43 @@ public class WebTest extends TestBase {
 			assert (false);
 		}
 		try {
-			registrationScenario.negativeTestScenarioRegistrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
+			registrationScenario.negativeTestScenarioRegistrationAsInvestor(
+					getProps().getProperty("SyndicationDevRegistrationUrl"));
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Negative use case pass successfully for Sign up page!!");
 		} catch (Exception e) {
 			test.log(LogStatus.FAIL, "Failed!! Negative use case fail for Sign up page!!");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify Registration Successfully.
 	 */
-	//@Test(priority=1)
+	// @Test(priority=1)
 	public void synProRegistrationPage() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
 			dashboardAsInvestor.verifyTourAsInvestor(getProps().getProperty("SyndicationDevInvestUrl"));
-			dashboardAsInvestor.verifyAndUpdateMyInfoPageAsInvestor(getProps().getProperty("SyndicationDevInvestorAccountUrl"));
+			dashboardAsInvestor
+					.verifyAndUpdateMyInfoPageAsInvestor(getProps().getProperty("SyndicationDevInvestorAccountUrl"));
 			logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! User registration successfully!!");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! User not able to registration successfully!!");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
-	
-	
+
 	/**
-	 * Syndication-Pro test scenario : Verify Negative Use Case for login page as Sponsor.
+	 * Syndication-Pro test scenario : Verify Negative Use Case for login page as
+	 * Sponsor.
 	 */
-	//@Test(priority=2)
+	// @Test(priority=2)
 	public void synProNegativeTestForLoginAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -130,35 +129,36 @@ public class WebTest extends TestBase {
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! to Negative test cases");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify login successfully as Sponsor.
 	 */
-	//@Test(priority=3)
+	// @Test(priority=3)
 	public void synProLoginAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
-			dashboardAsSponsor.verifyDashboardAsSponsor(getProps().getProperty("SyndicationDevDashboardUrl"), getProps().getProperty("SyndicationDevProductTourUrl"));
+			dashboardAsSponsor.verifyDashboardAsSponsor(getProps().getProperty("SyndicationDevDashboardUrl"),
+					getProps().getProperty("SyndicationDevProductTourUrl"));
 			logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified login page as Sponsor");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! not able to login page as Sponsor");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify Dash-board as sponsor.
 	 */
-	//@Test(priority=4)
+	// @Test(priority=4)
 	public void synProDashboardAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -166,71 +166,204 @@ public class WebTest extends TestBase {
 			loginAsSponsor.loginPage();
 			String str = SynproApiResponseCode.getActiveInvestmentAmount();
 			System.out.println(str);
-			//dashboardAsSponsor.verifyLeadsEmail();
+			// dashboardAsSponsor.verifyLeadsEmail();
 			dashboardAsSponsor.verifyLeadsEdit();
-			//dashboardAsSponsor.verifyLeadsNotes();
+			// dashboardAsSponsor.verifyLeadsNotes();
 			dashboardAsSponsor.verifyOfferingsUpdates(getProps().getProperty("SyndicationDevOfferingsUrl"));
 			dashboardAsSponsor.verifyOfferingsEdit();
-			dashboardAsSponsor.verifyUsersInvestors(getProps().getProperty("SyndicationDevLeadsUrl"), getProps().getProperty("SyndicationDevLeadsUrl"), getProps().getProperty("SyndicationDevLeadsUrl"), getProps().getProperty("SyndicationDevInvestorsUrl"), getProps().getProperty("SyndicationDevOfferingsUrl"), getProps().getProperty("SyndicationDevOfferingsUrl"));
+			dashboardAsSponsor.verifyUsersInvestors(getProps().getProperty("SyndicationDevLeadsUrl"),
+					getProps().getProperty("SyndicationDevLeadsUrl"), getProps().getProperty("SyndicationDevLeadsUrl"),
+					getProps().getProperty("SyndicationDevInvestorsUrl"),
+					getProps().getProperty("SyndicationDevOfferingsUrl"),
+					getProps().getProperty("SyndicationDevOfferingsUrl"));
 			dashboardAsSponsor.verifyPagination();
 			logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify Leads as sponsor.
 	 */
-	//@Test(priority=5)
+	// @Test(priority=5)
 	public void synProLeadsAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
 			leadsAsSponsor.verifyLeadsPage(getProps().getProperty("SyndicationDevLeadsUrl"));
-			leadsAsSponsor.addLeads(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevLeadsUrl"));
-			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevLeadsUrl"));
+			leadsAsSponsor.addLeads(getProps().getProperty("YopMail"),
+					getProps().getProperty("SyndicationDevLeadsUrl"));
+			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"),
+					getProps().getProperty("SyndicationDevLeadsUrl"));
 			leadsAsSponsor.searchLeadAndVerify();
 			leadsAsSponsor.resendInvites();
-			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevLeadsUrl"));
+			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"),
+					getProps().getProperty("SyndicationDevLeadsUrl"));
 			leadsAsSponsor.verifyLeadTitles();
 			logoutScenario.logoutPage();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Leads Page");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! to Verified Leads page");
-			Assert.fail(); 
+			Assert.fail();
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
 	@Test(priority=6)
-	public void synProMassEmailAsSponsor() {
+	public void synProSendEmailAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
-			massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
-			massEmail.selectColumn();
-			massEmail.scheduleToSendAndVerify();
-			massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
-			massEmail.selectColumn();
-			leadsAsSponsor.verifyInvitesOnEmail(getProps().getProperty("YopMail"), getProps().getProperty("SyndicationDevMassEmailUrl"));
-			//logoutScenario.logoutPage();
+			try {
+				massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"), "Send Email");
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create template");
+				assert (false);
+			}
+			try {
+				massEmail.selectFirstTwoColumn();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create columns in templates");
+				assert (false);
+			}
+			try {
+				massEmail.scheduleToSendAndVerify();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to schedule the template and verify");
+				assert (false);
+			}
+			try {
+				massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"), "Send Email");
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create template");
+				assert (false);
+			}
+			try {
+				massEmail.selectFirstTwoColumn();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create columns in templates");
+				assert (false);
+			}
+			try {
+				massEmail.sendEmailAndVerify();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to send email templates and verify");
+				assert (false);
+			}
+			try {
+				logoutScenario.logoutPage();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to logout");
+				assert (false);
+			}
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
 			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
-			Assert.fail(); 
+			Assert.fail();
+			assert (false);
+		}
+	}
+
+	/**
+	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
+	 */
+	@Test(priority = 7)
+	public void synProSendEmailFromTemplateAsSponsor() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.loginPage();
+			try {
+				massEmail.createTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"), "Send Email");
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create template");
+				assert (false);
+			}
+			try {
+				massEmail.selectFirstTwoColumn();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create columns in templates");
+				assert (false);
+			}
+			try {
+				massEmail.draftToSendAndVerify();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to send email on draft and verify");
+				assert (false);
+			}
+			try {
+				massEmail.createEmailTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create email template");
+				assert (false);
+			}
+			try {
+				massEmail.selectFirstTwoColumn();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create columns in templates");
+				assert (false);
+			}
+			try {
+				massEmail.saveTemplateAndVerify();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to save template and verify");
+				assert (false);
+			}
+			try {
+				massEmail.sendEmailFromTemplate();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to send email from template");
+				assert (false);
+			}
+			try {
+				logoutScenario.logoutPage();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to logout");
+				assert (false);
+			}
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
+			Assert.fail();
+			assert (false);
+		}
+	}
+
+	/**
+	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
+	 */
+	@Test(priority=8)
+	public void synProMassEmailTemplatesAsSponsor() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.loginPage();
+			massEmail.createEmailTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			massEmail.selectFirstTwoColumn();
+			massEmail.saveTemplateAndVerify();
+			massEmail.selectFromSavedTemplate();
+			massEmail.deleteTemplate(TestData.NEW_MASS_EMAIL_TEMPLATE);
+			massEmail.editTemplate(TestData.MASS_EMAIL_TEMPLATE);
+			massEmail.deleteTemplate(TestData.MASS_EMAIL_TEMPLATE);
+			// logoutScenario.logoutPage();
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
+			Assert.fail();
 			assert (false);
 		}
 	}

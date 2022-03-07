@@ -84,5 +84,9 @@ public class TestData extends TestBase {
 	 */
 	public static final String MASS_EMAIL_NAME = "Automation Mass Email";
 	public static final String SCHEDULED_TIME = "Scheduled";
-	
+	public static final String STATUS_PENDING = "Pending";
+	public static final String MASS_EMAIL_TEMPLATE = "Automation Mass Email Template";
+	public static final String MASS_EMAIL_DESCRIPTION = "Mass Email Description";
+	public static final String NEW_MASS_EMAIL_TEMPLATE = "Automation New Email Template";
+	public static final String NEW_MASS_EMAIL_DESCRIPTION = "New Email Description";
 }

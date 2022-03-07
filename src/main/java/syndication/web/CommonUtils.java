@@ -511,8 +511,6 @@ public class CommonUtils extends TestBase {
 
 	/**
 	 * Verifies whether the element matching the provided locator is displayed on
-	 * page
-	 *
 	 * @param by
 	 * @throws AssertionError if the element matching the provided locator is not
 	 *                        found or not displayed
@@ -528,8 +526,6 @@ public class CommonUtils extends TestBase {
 
 	/**
 	 * Verifies whether the element matching the provided locator is NOT displayed
-	 * on page
-	 *
 	 * @param by
 	 * @throws AssertionError the element matching the provided locator is displayed
 	 */
@@ -581,7 +577,27 @@ public class CommonUtils extends TestBase {
 		}
 		return false;
 	}
+	
+	/**
+	 * @param by
+	 * @return Method to element is enabled
+	 */
+	public static boolean checkElementIsEnabled(By by) {
+		try {
+			if (driver.findElement(by).isEnabled()) {
+				logger.info("The element is present " + by.toString());
+				return true;
+			} else {
+				logger.info("The element not present " + by.toString());
+			}
 
+		} catch (Exception e) {
+			logger.error(e);
+			Assert.fail();
+		}
+		return false;
+	}
+	
 	/**
 	 * @param second
 	 * @throws Exception hardStop
@@ -770,6 +786,73 @@ public class CommonUtils extends TestBase {
 		WebElement el = driver.findElement(element);
 		action.click(el).build().perform();
 	}
+	
+	/**
+	 * @param 
+	 * @return
+	 * @throws Exception 
+	 */
+	public static void actionsSeriesMouseClick(By elementOne, String value, By elementTwo ) throws Exception {
+
+		Actions builder = new Actions(driver);
+		
+		WebElement elOne = driver.findElement(elementOne);
+		WebElement elTwo = driver.findElement(elementTwo);
+		
+		builder.moveToElement(elOne).build().perform();
+		builder.moveToElement(elTwo).click().perform();
+		focusStop(3000);
+		
+		
+		Action seriesOfActions;
+		seriesOfActions = builder
+				.sendKeys(elOne, value)
+				.click()
+				.clickAndHold()
+				.build();
+		seriesOfActions.perform();
+	}
+	
+	/**
+	 * @param 
+	 * @return
+	 * @throws Exception 
+	 */
+	public static void actionsSerieMouseClick(By elementOne,By elementTwo) throws Exception {
+
+		Actions builder = new Actions(driver);
+		WebElement elOne = driver.findElement(elementOne);
+		WebElement elTwo = driver.findElement(elementOne);
+		builder.moveToElement(elOne).click().perform();
+		focusStop(3000);
+		Action seriesOfActions;
+		seriesOfActions = builder
+				.keyDown(elOne,Keys.SHIFT)
+				.build();
+		seriesOfActions.perform();
+	}
+	
+	/**
+	 * @param 
+	 * @return
+	 */
+	public static void actionsMouseDoubleClick(By element) {
+
+		Actions action = new Actions(driver);
+		WebElement el = driver.findElement(element);
+		action.doubleClick(el).build().perform();
+	}
+	
+	/**
+	 * @param 
+	 * @return
+	 */
+	public static void actionsMouseClickAndHold(By element) {
+
+		Actions action = new Actions(driver);
+		WebElement el = driver.findElement(element);
+		action.clickAndHold(el).build().perform();
+	}
 
 	/**
 	 * @param scroll down
@@ -821,12 +904,14 @@ public class CommonUtils extends TestBase {
 
 			// Element on which need to drop.
 			WebElement To = driver.findElement(to);
-
+			
 			// Using Action class for drag and drop.
 			Actions act = new Actions(driver);
 
 			// Dragged and dropped.
-			act.dragAndDrop(From, To).build().perform();
+			act.dragAndDropBy(From, 100, 100).build().perform();			
+			
+			
 		} catch (Exception e) {
 			logger.error(e);
 			assert (false);
@@ -836,42 +921,33 @@ public class CommonUtils extends TestBase {
 	/**
 	 * @param Method to drag and drop
 	 */
-	public static void dragAndDropUsingJavaScriptExecutor(By from, By to) {
+	public static void dragAndDropUsingJavaScriptExecutor(By from) {
 		try {
-
-//			WebElement LocatorFrom = driver.findElement(from);
-//			   WebElement LocatorTo = driver.findElement(to);
-//			 JavascriptExecutor js = (JavascriptExecutor)driver;
-//			 
-//			   String xto=Integer.toString(LocatorTo.getLocation().x);
-//			   String yto=Integer.toString(LocatorTo.getLocation().y);
-//				
-//			   
-//			  js.executeScript("function simulate(f,c,d,e){var b,a=null;for(b in eventMatchers)if(eventMatchers[b].test(c)){a=b;break}if(!a)return!1;document.createEvent?(b=document.createEvent(a),a==\"HTMLEvents\"?b.initEvent(c,!0,!0):b.initMouseEvent(c,!0,!0,document.defaultView,0,d,e,d,e,!1,!1,!1,!1,0,null),f.dispatchEvent(b)):(a=document.createEventObject(),a.detail=0,a.screenX=d,a.screenY=e,a.clientX=d,a.clientY=e,a.ctrlKey=!1,a.altKey=!1,a.shiftKey=!1,a.metaKey=!1,a.button=1,f.fireEvent(\"on\"+c,a));return!0} var eventMatchers={HTMLEvents:/^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,MouseEvents:/^(?:click|dblclick|mouse(?:down|up|over|move|out))$/}; " +
-//						"simulate(arguments[0],\"mousedown\",0,0); simulate(arguments[0],\"mousemove\",arguments[1],arguments[2]); simulate(arguments[0],\"mouseup\",arguments[1],arguments[2]); ",
-//						LocatorFrom,xto,yto);
-			Thread.sleep(1500);
-			WebElement LocatorFrom = driver.findElement(from);
-			   WebElement LocatorTo = driver.findElement(to);
-			   JavascriptExecutor js = (JavascriptExecutor)driver;
-			   js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
-			                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
-			                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
-			                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
-			                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
-			                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
-			                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
-			                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
-			                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
-			                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
-			                + "var dropEvent = createEvent('drop');\n"
-			                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
-			                + "var dragEndEvent = createEvent('dragend');\n"
-			                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
-			                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
-			                + "simulateHTML5DragAndDrop(source,destination);", LocatorFrom, LocatorTo);
-				
-			Thread.sleep(1500);
+			
+			// WebElement LocatorFrom = driver.findElement(from);
+			
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			Object LocatorFrom = executor.executeScript("document.querySelector(\"#editor > div > div > div > div > div > div > div.sc-jLiVlK.eACBbd.blockbuilder-preferences.right > div > div > div > div.tab-content > div.tab-pane.active > div > div:nth-child(2) > div > div.blockbuilder-content-tool-name\")");
+		   Object LocatorTo = executor.executeScript("document.getElementById(\"u_body\")");
+		   
+		   JavascriptExecutor js = (JavascriptExecutor)driver;
+		   js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
+		                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
+		                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
+		                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
+		                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
+		                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
+		                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
+		                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
+		                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
+		                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
+		                + "var dropEvent = createEvent('drop');\n"
+		                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
+		                + "var dragEndEvent = createEvent('dragend');\n"
+		                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
+		                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
+		                + "simulateHTML5DragAndDrop(source,destination);", LocatorFrom, LocatorTo);
+			
 
 		} catch (Exception e) {
 			logger.error(e);
@@ -893,11 +969,17 @@ public class CommonUtils extends TestBase {
 
 			Point coordinates1 = From.getLocation();
 			Point coordinates2 = To.getLocation();
+			
+			System.out.println("xxxxxxxxx"+coordinates1);
+			System.out.println("yyyyyyyyy"+coordinates2);
+			
+			
 			Robot robot = new Robot();
 			robot.mouseMove(coordinates1.getX(), coordinates1.getY());
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.mouseMove(coordinates2.getX(), coordinates2.getY());
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);
+			
 		} catch (Exception e) {
 			logger.error(e);
 			assert (false);
@@ -918,7 +1000,7 @@ public class CommonUtils extends TestBase {
 			// Using Action class for drag and drop.
 			Actions builder = new Actions(driver);
 
-			Action dragAndDrop = builder.clickAndHold(From).moveToElement(To).release(To).build();
+			Action dragAndDrop = builder.clickAndHold(From).moveToElement(From).release(To).build();
 			dragAndDrop.perform();
 		} catch (Exception e) {
 			logger.error(e);
