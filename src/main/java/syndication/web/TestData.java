@@ -89,4 +89,25 @@ public class TestData extends TestBase {
 	public static final String MASS_EMAIL_DESCRIPTION = "Mass Email Description";
 	public static final String NEW_MASS_EMAIL_TEMPLATE = "Automation New Email Template";
 	public static final String NEW_MASS_EMAIL_DESCRIPTION = "New Email Description";
+	
+	/**
+	 * ReworkReservation
+	 */
+	public static final String NEW_OFFERING_NAME = "Automation Offering";
+	public static final String OFFERING_ENTITY = "Automation Offering Entity";
+	public static final String OFFERING_SIZE = "123456";
+	public static final String OFFERING_MIN_INVESTMENT = "50";
+	public static final String VISIBILITY_ALL_USERS = "All Users";
+	public static final String LOCATION_MAP = "California USA";
+	public static final String KEY_HIGHLIGHT_VALUE = "2";
+	public static final String AUTOMATION_DEMO_RESERVATION = "Automation Demo";
+	
+	/**
+	 *Investment Value
+	 */
+	public static final String INVESTMENT_AMOUNT = "1000";
+	
+	
+	
+	
 }

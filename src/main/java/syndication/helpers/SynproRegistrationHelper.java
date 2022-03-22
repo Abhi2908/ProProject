@@ -165,8 +165,10 @@ public class SynproRegistrationHelper extends CommonUtils {
 		waitFindEnterText(commonPage.common_send_text("lastName"), TestData.LASTNAME_AS_INVESTOR);
 
 		// Click and select value from residency drop-down
-		waitForElementToBeClickable(registrationPage.residency_dropDown("Residency"));
-		moveToWebElementAndClick(registrationPage.residency_dropDown("Residency"));
+		//waitForElementToBeClickable(registrationPage.residency_dropDown("Residency"));
+		focusStop(3000);
+		moveToWebElementAndClick(registrationPage.residency_dropDown);
+		moveToWebElementAndClick(registrationPage.residency_dropDown);
 		moveToWebElementAndClick(commonPage.common_clickable_button("California"));
 
 		// Enter values in email and phone

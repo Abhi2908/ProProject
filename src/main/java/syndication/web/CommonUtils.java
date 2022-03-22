@@ -209,8 +209,8 @@ public class CommonUtils extends TestBase {
 	@SuppressWarnings("unused")
 	protected boolean waitUntilLoadingPage(final String text, final By by) {
 
-		Wait<WebDriver> waitFluent = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(30))
-				.pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
+		Wait<WebDriver> waitFluent = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(300))
+				.pollingEvery(Duration.ofSeconds(7)).ignoring(NoSuchElementException.class);
 
 		WebElement element = waitFluent.until(new Function<WebDriver, WebElement>() {
 			public WebElement apply(WebDriver driver) {
@@ -248,6 +248,21 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 		return false;
+	}
+
+	public static boolean javaScriptTextEditor(By by) {
+		try {
+			WebElement text = driver.findElement(by);
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].innerHTML = 'Automation text editor'", text);
+			return true;
+		} catch (WebDriverException e) {
+			logger.error(e);
+			Assert.fail();
+			assert (false);
+		}
+		return false;
+
 	}
 
 	/**
@@ -511,6 +526,7 @@ public class CommonUtils extends TestBase {
 
 	/**
 	 * Verifies whether the element matching the provided locator is displayed on
+	 * 
 	 * @param by
 	 * @throws AssertionError if the element matching the provided locator is not
 	 *                        found or not displayed
@@ -526,6 +542,7 @@ public class CommonUtils extends TestBase {
 
 	/**
 	 * Verifies whether the element matching the provided locator is NOT displayed
+	 * 
 	 * @param by
 	 * @throws AssertionError the element matching the provided locator is displayed
 	 */
@@ -577,7 +594,7 @@ public class CommonUtils extends TestBase {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param by
 	 * @return Method to element is enabled
@@ -597,7 +614,7 @@ public class CommonUtils extends TestBase {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param second
 	 * @throws Exception hardStop
@@ -775,7 +792,7 @@ public class CommonUtils extends TestBase {
 		WebElement el = driver.findElement(element);
 		action.moveToElement(el).sendKeys(Keys.PAGE_UP).perform();
 	}
-	
+
 	/**
 	 * @param scroll up
 	 * @return
@@ -786,39 +803,49 @@ public class CommonUtils extends TestBase {
 		WebElement el = driver.findElement(element);
 		action.click(el).build().perform();
 	}
-	
+
 	/**
-	 * @param 
+	 * @param scroll up
 	 * @return
-	 * @throws Exception 
 	 */
-	public static void actionsSeriesMouseClick(By elementOne, String value, By elementTwo ) throws Exception {
+	public static void controlClickUsingActionsXYOffset(By element) {
+		Actions builder = new Actions(driver);
+		WebElement elOne = driver.findElement(element);
+
+		int xOffset = elOne.getLocation().getX();
+		int yOffset = elOne.getLocation().getY();
+
+		builder.moveToElement(elOne, xOffset, yOffset).click().perform();
+
+	}
+
+	/**
+	 * @param
+	 * @return
+	 * @throws Exception
+	 */
+	public static void actionsSeriesMouseClick(By elementOne, String value, By elementTwo) throws Exception {
 
 		Actions builder = new Actions(driver);
-		
+
 		WebElement elOne = driver.findElement(elementOne);
 		WebElement elTwo = driver.findElement(elementTwo);
-		
+
 		builder.moveToElement(elOne).build().perform();
 		builder.moveToElement(elTwo).click().perform();
 		focusStop(3000);
-		
-		
+
 		Action seriesOfActions;
-		seriesOfActions = builder
-				.sendKeys(elOne, value)
-				.click()
-				.clickAndHold()
-				.build();
+		seriesOfActions = builder.sendKeys(elOne, value).click().clickAndHold().build();
 		seriesOfActions.perform();
 	}
-	
+
 	/**
-	 * @param 
+	 * @param
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public static void actionsSerieMouseClick(By elementOne,By elementTwo) throws Exception {
+	public static void actionsSerieMouseClick(By elementOne, By elementTwo) throws Exception {
 
 		Actions builder = new Actions(driver);
 		WebElement elOne = driver.findElement(elementOne);
@@ -826,14 +853,12 @@ public class CommonUtils extends TestBase {
 		builder.moveToElement(elOne).click().perform();
 		focusStop(3000);
 		Action seriesOfActions;
-		seriesOfActions = builder
-				.keyDown(elOne,Keys.SHIFT)
-				.build();
+		seriesOfActions = builder.keyDown(elOne, Keys.SHIFT).build();
 		seriesOfActions.perform();
 	}
-	
+
 	/**
-	 * @param 
+	 * @param
 	 * @return
 	 */
 	public static void actionsMouseDoubleClick(By element) {
@@ -842,9 +867,9 @@ public class CommonUtils extends TestBase {
 		WebElement el = driver.findElement(element);
 		action.doubleClick(el).build().perform();
 	}
-	
+
 	/**
-	 * @param 
+	 * @param
 	 * @return
 	 */
 	public static void actionsMouseClickAndHold(By element) {
@@ -897,21 +922,20 @@ public class CommonUtils extends TestBase {
 	/**
 	 * @param Method to drag and drop
 	 */
-	public static void dragAndDrop(By from, By to) {
+	public static void dragAndDrop(By from, By to, int offset) {
 		try {
 			// Element which needs to drag.
 			WebElement From = driver.findElement(from);
 
 			// Element on which need to drop.
 			WebElement To = driver.findElement(to);
-			
+
 			// Using Action class for drag and drop.
 			Actions act = new Actions(driver);
 
 			// Dragged and dropped.
-			act.dragAndDropBy(From, 100, 100).build().perform();			
-			
-			
+			act.dragAndDropBy(From, offset, 100).build().perform();
+
 		} catch (Exception e) {
 			logger.error(e);
 			assert (false);
@@ -923,31 +947,32 @@ public class CommonUtils extends TestBase {
 	 */
 	public static void dragAndDropUsingJavaScriptExecutor(By from) {
 		try {
-			
+
 			// WebElement LocatorFrom = driver.findElement(from);
-			
+
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			Object LocatorFrom = executor.executeScript("document.querySelector(\"#editor > div > div > div > div > div > div > div.sc-jLiVlK.eACBbd.blockbuilder-preferences.right > div > div > div > div.tab-content > div.tab-pane.active > div > div:nth-child(2) > div > div.blockbuilder-content-tool-name\")");
-		   Object LocatorTo = executor.executeScript("document.getElementById(\"u_body\")");
-		   
-		   JavascriptExecutor js = (JavascriptExecutor)driver;
-		   js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n"
-		                + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n"
-		                + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
-		                + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
-		                + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
-		                + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
-		                + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
-		                + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
-		                + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
-		                + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
-		                + "var dropEvent = createEvent('drop');\n"
-		                + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
-		                + "var dragEndEvent = createEvent('dragend');\n"
-		                + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
-		                + "var source = arguments[0];\n" + "var destination = arguments[1];\n"
-		                + "simulateHTML5DragAndDrop(source,destination);", LocatorFrom, LocatorTo);
-			
+			Object LocatorFrom = executor.executeScript(
+					"document.querySelector(\"#editor > div > div > div > div > div > div > div.sc-jLiVlK.eACBbd.blockbuilder-preferences.right > div > div > div > div.tab-content > div.tab-pane.active > div > div:nth-child(2) > div > div.blockbuilder-content-tool-name\")");
+			Object LocatorTo = executor.executeScript("document.getElementById(\"u_body\")");
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("function createEvent(typeOfEvent) {\n"
+					+ "var event =document.createEvent(\"CustomEvent\");\n"
+					+ "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n"
+					+ "data: {},\n" + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n"
+					+ "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n"
+					+ "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n"
+					+ "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n"
+					+ "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n"
+					+ "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n"
+					+ "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n"
+					+ "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n"
+					+ "var dropEvent = createEvent('drop');\n"
+					+ "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n"
+					+ "var dragEndEvent = createEvent('dragend');\n"
+					+ "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n"
+					+ "var source = arguments[0];\n" + "var destination = arguments[1];\n"
+					+ "simulateHTML5DragAndDrop(source,destination);", LocatorFrom, LocatorTo);
 
 		} catch (Exception e) {
 			logger.error(e);
@@ -969,17 +994,16 @@ public class CommonUtils extends TestBase {
 
 			Point coordinates1 = From.getLocation();
 			Point coordinates2 = To.getLocation();
-			
-			System.out.println("xxxxxxxxx"+coordinates1);
-			System.out.println("yyyyyyyyy"+coordinates2);
-			
-			
+
+			System.out.println("xxxxxxxxx" + coordinates1);
+			System.out.println("yyyyyyyyy" + coordinates2);
+
 			Robot robot = new Robot();
 			robot.mouseMove(coordinates1.getX(), coordinates1.getY());
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.mouseMove(coordinates2.getX(), coordinates2.getY());
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);
-			
+
 		} catch (Exception e) {
 			logger.error(e);
 			assert (false);
@@ -1007,8 +1031,7 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
-	
+
 	/**
 	 * @param Method to drag and drop
 	 */
@@ -1055,7 +1078,7 @@ public class CommonUtils extends TestBase {
 	 */
 	public static void waitFindSelect(By by, String option) {
 		try {
-			
+
 			Select dropdown = new Select(driver.findElement(by));
 			dropdown.selectByVisibleText(option);
 			logger.info("Object selected " + option + " successfully" + by.toString());
@@ -1065,7 +1088,7 @@ public class CommonUtils extends TestBase {
 			assert (false);
 		}
 	}
-	
+
 	/**
 	 * @param promo_weekend_checkbox selected element get unselected
 	 * @return

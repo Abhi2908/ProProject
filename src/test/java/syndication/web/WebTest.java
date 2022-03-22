@@ -21,6 +21,8 @@ import syndication.helpers.SynproLeadsSponsorHelper;
 import syndication.helpers.SynproLoginSponsorHelper;
 import syndication.helpers.SynproLogoutHelper;
 import syndication.helpers.SynproMassEmailAsSponsorHelper;
+import syndication.helpers.SynproMyInvestmentInvestorHelper;
+import syndication.helpers.SynproPortfolioReworkReservationHelper;
 import syndication.helpers.SynproRegistrationHelper;
 
 public class WebTest extends TestBase {
@@ -36,7 +38,9 @@ public class WebTest extends TestBase {
 	SynproLogoutHelper logoutScenario;
 	SynproApiResponseCode apiResponse;
 	SynproMassEmailAsSponsorHelper massEmail;
-
+	SynproPortfolioReworkReservationHelper reworkReservation;
+	SynproMyInvestmentInvestorHelper investmentAsInvestor;
+	
 	@BeforeSuite
 	@Parameters("browser")
 	public void setup(String browser) throws IOException {
@@ -51,6 +55,8 @@ public class WebTest extends TestBase {
 		dashboardAsInvestor = new SynproDashboardInvestorHelper();
 		apiResponse = new SynproApiResponseCode();
 		massEmail = new SynproMassEmailAsSponsorHelper();
+		reworkReservation = new SynproPortfolioReworkReservationHelper();
+		investmentAsInvestor = new SynproMyInvestmentInvestorHelper();
 	}
 
 	@BeforeMethod
@@ -219,7 +225,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	@Test(priority=6)
+	// @Test(priority=6)
 	public void synProSendEmailAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -279,7 +285,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	@Test(priority = 7)
+	//@Test(priority = 7)
 	public void synProSendEmailFromTemplateAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -345,20 +351,98 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	@Test(priority=8)
+	//@Test(priority = 8)
 	public void synProMassEmailTemplatesAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			loginAsSponsor.loginPage();
-			massEmail.createEmailTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
-			massEmail.selectFirstTwoColumn();
-			massEmail.saveTemplateAndVerify();
-			massEmail.selectFromSavedTemplate();
-			massEmail.deleteTemplate(TestData.NEW_MASS_EMAIL_TEMPLATE);
-			massEmail.editTemplate(TestData.MASS_EMAIL_TEMPLATE);
-			massEmail.deleteTemplate(TestData.MASS_EMAIL_TEMPLATE);
-			// logoutScenario.logoutPage();
+			try {
+				massEmail.createEmailTemplate(getProps().getProperty("SyndicationDevMassEmailUrl"));
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create template");
+				assert (false);
+			}
+			try {
+				massEmail.selectFirstTwoColumn();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Not able to create columns in templates");
+				assert (false);
+			}
+			try {
+				massEmail.saveTemplateAndVerify();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Save template and verify");
+				assert (false);
+			}
+			try {
+				massEmail.selectFromSavedTemplate();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Select template from saved template");
+				assert (false);
+			}
+			try {
+				massEmail.deleteTemplate(TestData.NEW_MASS_EMAIL_TEMPLATE);
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Delete template");
+				assert (false);
+			}
+			try {
+				massEmail.editTemplate(TestData.MASS_EMAIL_TEMPLATE);
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Edit template");
+				assert (false);
+			}
+			try {
+				massEmail.deleteTemplate(TestData.MASS_EMAIL_TEMPLATE);
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Delete template");
+				assert (false);
+			}
+			try {
+				logoutScenario.logoutPage();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Logout successfully");
+				assert (false);
+			}
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
+			Assert.fail();
+			assert (false);
+		}
+	}
+
+	/**
+	 * Syndication-Pro test scenario : Rework reservation
+	 */
+	@Test(priority = 9)
+	public void synProReworkReservationr() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+		//	loginAsSponsor.loginPage();
+		//	reworkReservation.addNewOffering(getProps().getProperty("SyndicationDevOfferingsUrl"));
+		//	reworkReservation.offeringDetailForm();
+		//	reworkReservation.eSignTemplateForm();
+		//	reworkReservation.addReservationsFromInvestorsPage();
+			driver.navigate().refresh();
+			driver.get(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
+			investmentAsInvestor.verifyInvestmentInvestor();
+		//	reworkReservation.addReservationsFromInvestorsPage();
+			
+			//logoutScenario.logoutPage();
+			//registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
+			//
+			
+			try {
+			//	logoutScenario.logoutPage();
+			} catch (Exception e) {
+				test.log(LogStatus.FAIL, "Logout successfully");
+				assert (false);
+			}
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
 		} catch (Exception e) {
 			// To fail test in case of any element identification

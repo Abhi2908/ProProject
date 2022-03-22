@@ -15,8 +15,9 @@ public class SynproRegistrationPage {
 	public By phone = By.xpath("//input[@class=\" form-control\"]");
 	
 	// Sign up Drop-downs
+	public By residency_dropDown = By.xpath("//*[@id=\"root\"]/div/div[1]/div/main/div/div/div/div[3]/form/div[3]/div/div/div/div/div/div/div[2]/span");
 	public By residency_dropDown(String select_name) {
-		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]/..//div[@class=\"css-bg1rzq-control\"]");
+		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]/../div/div/div/div/div[@class=\"css-bg1rzq-control\"]/div[1]");
 		return webElement;
 	}
 	
