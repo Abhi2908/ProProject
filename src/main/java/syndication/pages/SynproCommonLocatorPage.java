@@ -58,4 +58,9 @@ public class SynproCommonLocatorPage {
 		By webElement = By.xpath("//*[@class=\" responsiveTable\"]//*[contains(text(),\"" + select_name + "\")]");
 		return webElement;
 	}
+	
+	public By accreditations_toggleButtons(String select_name) {
+		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]/..//div[@class=\"react-switch\"]");
+		return webElement;
+	}
 }

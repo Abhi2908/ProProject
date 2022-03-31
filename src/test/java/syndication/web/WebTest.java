@@ -422,11 +422,12 @@ public class WebTest extends TestBase {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
-		//	loginAsSponsor.loginPage();
-		//	reworkReservation.addNewOffering(getProps().getProperty("SyndicationDevOfferingsUrl"));
-		//	reworkReservation.offeringDetailForm();
-		//	reworkReservation.eSignTemplateForm();
-		//	reworkReservation.addReservationsFromInvestorsPage();
+			loginAsSponsor.loginPage();
+			reworkReservation.addNewOffering(getProps().getProperty("SyndicationDevOfferingsUrl"));
+			reworkReservation.offeringDetailForm();
+			reworkReservation.accreditationsForm();
+			reworkReservation.eSignTemplateForm();
+			reworkReservation.investFromInvestorsPageWhileLogout();
 			driver.navigate().refresh();
 			driver.get(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));

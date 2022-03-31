@@ -103,6 +103,18 @@ public class TestData extends TestBase {
 	public static final String AUTOMATION_DEMO_RESERVATION = "Automation Demo";
 	
 	/**
+	 * Wire Transfer
+	 */
+	public static final String RECEIVING_BANK = "Bank of America";
+	public static final String BANK_ADDRESS = "California Bank";
+	public static final String ROUTING_NUMBER = "8970897893";
+	public static final String ACCOUNT_NUMBER = "1000";
+	public static final String BENEFICIARY_ACCOUNT_NAME = "Automation Beneficiary";
+	public static final String BENEFICIARY_ADDRESS = "California";
+	public static final String REFERENCE = "Automation Reference";
+	public static final String OTHER_INSTRUCTIONS = "Keep Safe";
+	
+	/**
 	 *Investment Value
 	 */
 	public static final String INVESTMENT_AMOUNT = "1000";

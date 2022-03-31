@@ -13,6 +13,7 @@ public class SynproPortfolioReworkReservationPage  {
 	public By title_offering = By.xpath("//h3[contains(text(),\"Automation Offering\")]");
 	public By offering_type_dropdown = By.xpath("//*[contains(text(),\"Offering Type\")]/../div/div/div/div");
 	public By select_investment_type = By.xpath("//li/div/div[contains(text(),\"Investment\")]");
+	public By remove_Offering = By.xpath("//*[contains(text(),\"Automation Offering Entity\")]/../../../../..//span[@class=\"action-icon lnr lnr-trash\"]");
 	public By offering_status_dropdown = By.xpath("//*[contains(text(),\"Status\")]/../div/div/div/div");
 	public By select_accepting_reservation = By.xpath("//li/div/div[contains(text(),\"Accepting Investments\")]");
 	public By offering_visibility_dropdown = By.xpath("//*[@id=\"react-select-single\"]");
@@ -27,6 +28,9 @@ public class SynproPortfolioReworkReservationPage  {
     public By toggle_public = By.xpath("//*[contains(text(),\"Private\")]/../span[2]/div/div/div/div");
     public By select_location = By.xpath("//div[@class=\"pac-container pac-logo\"]/div");
     public By keyHighlight_Save = By.xpath("//*[contains(text(),\"Key Highlights\")]/../../../../..//button[contains(text(),\"Save\")]");
+    public By select_wireTransfer = By.xpath("//span[contains(text(),\"Wire Transfer\")]");
+    public By select_Savings = By.xpath("//span[contains(text(),\"Savings\")]");
+    public By click_on_fundingInstruction_Save = By.xpath("//form[@class=\"material-forms\"]/div/div[7]/button");
     public By eSign_document = By.xpath("//div[@class=\"dropzone__input\"]/input");
     public By sponsor_signing_order = By.xpath("//*[@id=\"mui-component-select-adminSignatureOrder\"]");
     public By number_of_investor_sign = By.xpath("//*[@id=\"mui-component-select-investorCount\"]");
@@ -38,8 +42,8 @@ public class SynproPortfolioReworkReservationPage  {
     public By dropDown_signer = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/button");
     public By dropDown_select_sponsor = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[5]/button");
     public By continue_button = By.xpath("//*[@id=\"root\"]/div/div/div[4]/div[3]/div/button");
-    public By logOut_eSign = By.xpath("//*[@id=\"root\"]/div/div[1]/div/main/div/div[1]/div[2]/section/div[1]/div/div[1]/div/div/ul[2]/a/li/p");
-  
+    public By logOut_eSign = By.xpath("//div[@class=\"sidebar__wrapper sidebar__wrapper--desktop\"]//ul[2]/a//p");
+    
 
 
 

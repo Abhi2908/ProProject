@@ -24,6 +24,28 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 			+ System.getProperty("file.separator") + "test" + System.getProperty("file.separator") + "resources"
 			+ System.getProperty("file.separator") + "sample-three.pdf";
 
+	public void removeOffering() throws Exception {
+
+		// wait to load page
+		waitForPageLoad();
+		focusStop(5000);
+		try {
+			// Verifying click on Investors
+			scrollPageDownUsingActions(reworkReservation.remove_Offering);
+			waitForElementToBeClickable(reworkReservation.remove_Offering);
+			moveToWebElementAndClick(reworkReservation.remove_Offering);
+
+			waitUntilLoadingPage("Are you sure you want to archive this offering?",
+					commonPage.common_clickable_button("Are you sure you want to archive this offering?"));
+			waitForElementToBeClickable(commonPage.common_button("Yes"));
+			javaScriptClickUsingBy(commonPage.common_button("Yes"));
+			focusStop(5000);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+
 	public void addNewOffering(String massEmailUrl) throws Exception {
 
 		// wait to load page
@@ -54,6 +76,7 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		waitFindEnterTextAsList(commonPage.common_send_text("totalAmount"), TestData.OFFERING_SIZE);
 		waitFindEnterTextAsList(commonPage.common_send_text("minimumInvestment"), TestData.OFFERING_MIN_INVESTMENT);
 		waitFindEnterTextAsList(reworkReservation.offering_visibility_dropdown, TestData.VISIBILITY_ALL_USERS);
+		focusStop(2000);
 		clickOnScreenThroughRobot();
 
 		// click on Next
@@ -101,7 +124,7 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		// Submit Summary
 		javaScriptClickUsingBy(commonPage.common_clickable_button("Summary"));
 		focusStop(6000);
-		//waitForPresenceOfElement(reworkReservation.textEditor);
+		// waitForPresenceOfElement(reworkReservation.textEditor);
 		// Email click inside Text box
 		javaScriptTextEditor(reworkReservation.textEditor);
 		// update profile
@@ -158,6 +181,33 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		javaScriptClickUsingBy(reworkReservation.keyHighlight_Save);
 		javaScriptClickUsingBy(commonPage.common_clickable_button("Key Highlights"));
 
+		// Set funding Instructions
+		focusStop(3000);
+		javaScriptClickUsingBy(commonPage.common_clickable_button("Funding Instructions"));
+		waitForElementToBeClickable(reworkReservation.select_wireTransfer);
+		javaScriptClickUsingBy(reworkReservation.select_wireTransfer);
+
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.receivingBank"),
+				TestData.RECEIVING_BANK);
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.bankAddress"), TestData.BANK_ADDRESS);
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.federalReserve"),
+				TestData.ROUTING_NUMBER);
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.accountNumber"),
+				TestData.ACCOUNT_NUMBER);
+
+		waitForElementToBeClickable(reworkReservation.select_Savings);
+		javaScriptClickUsingBy(reworkReservation.select_Savings);
+
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.beneficiaryAccountName"),
+				TestData.BENEFICIARY_ACCOUNT_NAME);
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.beneficiaryAddress"),
+				TestData.BENEFICIARY_ADDRESS);
+		waitFindEnterTextAsList(commonPage.common_send_text("payment.wireTransfer.reference"), TestData.REFERENCE);
+
+		javaScriptClickUsingBy(reworkReservation.click_on_fundingInstruction_Save);
+		focusStop(3000);
+		javaScriptClickUsingBy(commonPage.common_clickable_button("Funding Instructions"));
+
 	}
 
 	public void eSignTemplateForm() throws Exception {
@@ -178,8 +228,8 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		focusStop(2000);
 		waitForElementToBeClickable(commonPage.common_clickable_button("Select Profile"));
 		javaScriptClickUsingBy(commonPage.common_clickable_button("Select Profile"));
-		waitForElementToBeClickable(commonPage.common_clickable_button("Retirement Plan"));
-		javaScriptClickUsingBy(commonPage.common_clickable_button("Retirement Plan"));
+		waitForElementToBeClickable(commonPage.common_clickable_button("Select All"));
+		javaScriptClickUsingBy(commonPage.common_clickable_button("Select All"));
 
 		// sponsor signing order
 		focusStop(2000);
@@ -232,21 +282,43 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		// waiting for Create eSign Template
 		waitUntilLoadingPage("Create eSign Template", commonPage.common_clickable_button("Create eSign Template"));
 		focusStop(5000);
-		
-		waitUntilLoadingPage("sample-three.pdf", commonPage.common_clickable_button("sample-three.pdf"));
 
+		waitUntilLoadingPage("sample-three.pdf", commonPage.common_clickable_button("sample-three.pdf"));
 
 	}
 
-	public void addReservationsFromInvestorsPage() throws Exception {
+	public void accreditationsForm() throws Exception {
+
+		// wait to load page
+		waitForPageLoad();
+
+		waitForElementToBeClickable(commonPage.common_clickable_button("Accreditations"));
+		javaScriptClickUsingBy(commonPage.common_clickable_button("Accreditations"));
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage
+				.accreditations_toggleButtons("Enable Automated Accreditation Verification via Parallel Markets."));
+		javaScriptClickUsingBy(commonPage
+				.accreditations_toggleButtons("Enable Automated Accreditation Verification via Parallel Markets."));
+		focusStop(1000);
+		waitForElementToBeClickable(commonPage
+				.accreditations_toggleButtons("Restrict eSign & Funding instructions only to Accredited Investors."));
+		javaScriptClickUsingBy(commonPage
+				.accreditations_toggleButtons("Restrict eSign & Funding instructions only to Accredited Investors."));
+		focusStop(1000);
+		waitForElementToBeClickable(
+				commonPage.accreditations_toggleButtons("Add Custom instructions for the investors."));
+		javaScriptClickUsingBy(commonPage.accreditations_toggleButtons("Add Custom instructions for the investors."));
+
+	}
+
+	public void investFromInvestorsPageWhileLogout() throws Exception {
 
 		// wait to load page
 		waitForPageLoad();
 		focusStop(5000);
 		// Verifying click on Investors
 		waitForElementToBeClickable(reworkReservation.logOut_eSign);
-		accessLink(reworkReservation.logOut_eSign);
-		
-		
+		moveToWebElementAndClick(reworkReservation.logOut_eSign);
+
 	}
 }

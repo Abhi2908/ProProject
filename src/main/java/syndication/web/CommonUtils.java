@@ -210,7 +210,7 @@ public class CommonUtils extends TestBase {
 	protected boolean waitUntilLoadingPage(final String text, final By by) {
 
 		Wait<WebDriver> waitFluent = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(300))
-				.pollingEvery(Duration.ofSeconds(7)).ignoring(NoSuchElementException.class);
+				.pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
 
 		WebElement element = waitFluent.until(new Function<WebDriver, WebElement>() {
 			public WebElement apply(WebDriver driver) {
