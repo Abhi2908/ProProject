@@ -432,9 +432,10 @@ public class WebTest extends TestBase {
 			driver.get(getProps().getProperty("SyndicationDevLoginPageUrl"));
 			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
 			investmentAsInvestor.verifyInvestmentInvestor();
-		//	reworkReservation.addReservationsFromInvestorsPage();
+		
+			//reworkReservation.addReservationsFromInvestorsPage();
 			
-			//logoutScenario.logoutPage();
+			logoutScenario.logoutPage();
 			//registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
 			//
 			
