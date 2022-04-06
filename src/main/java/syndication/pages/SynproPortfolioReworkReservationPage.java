@@ -8,9 +8,12 @@ public class SynproPortfolioReworkReservationPage  {
 	static final Logger logger = Logger.getLogger(SynproPortfolioReworkReservationPage.class.getName());
 
 	/**
-	 * Syndication-Pro my account locators
+	 * Syndication-Pro Rework Reservation Page locators
 	 */
-	public By title_offering = By.xpath("//h3[contains(text(),\"Automation Offering\")]");
+	public By title_offering(String select_name) {
+		By webElement = By.xpath("//h3[contains(text(),\"" + select_name + "\")]");
+		return webElement;
+	}
 	public By offering_type_dropdown = By.xpath("//*[contains(text(),\"Offering Type\")]/../div/div/div/div");
 	public By select_investment_type = By.xpath("//li/div/div[contains(text(),\"Investment\")]");
 	public By remove_Offering = By.xpath("//*[contains(text(),\"Automation Offering Entity\")]/../../../../..//span[@class=\"action-icon lnr lnr-trash\"]");
@@ -43,18 +46,21 @@ public class SynproPortfolioReworkReservationPage  {
     public By dropDown_select_sponsor = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[5]/button");
     public By continue_button = By.xpath("//*[@id=\"root\"]/div/div/div[4]/div[3]/div/button");
     public By logOut_eSign = By.xpath("//div[@class=\"sidebar__wrapper sidebar__wrapper--desktop\"]//ul[2]/a//p");
+   
+    public By button_automation_offering(String select_name) {
+		By webElement = By.xpath("//table//button/div[1][contains(text(),\"" + select_name + "\")]");
+		return webElement;
+	}
     
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public By button_sign_now = By.xpath("//table[@class=\"common-table responsiveTable\"]//*[contains(text(),\"Automation Demo\")]/../../..//button[5]/span");
+    public By button_close = By.xpath("//*[@id=\"test-id__close__button\"]");
+    public By text_completed = By.xpath("//*[@id=\"PORTFOLIO__OFFERING__LANDING\"]/div/div/div/div/div/div/div[2]/div/div/table/tbody/tr/td[4]/div[2]");
+    
+    public By edit_investor_status(String select_name) {
+		By webElement = By.xpath("//table//button/div[1][contains(text(),\"" + select_name + "\")]/../../../../../td[8]//span[1]/button/span");
+		return webElement;
+	}
+    
+    public By select_status_dropdown = By.xpath("//*[@id=\"mui-component-select-status\"]");
+    public By select_approved = By.xpath("//*[@id=\"menu-status\"]/div[3]/ul/li[3]/div/div");
 }

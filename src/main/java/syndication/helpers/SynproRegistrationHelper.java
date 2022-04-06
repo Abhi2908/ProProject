@@ -198,7 +198,7 @@ public class SynproRegistrationHelper extends CommonUtils {
 		waitForElementToBeClickable(commonPage.common_clickable_button("Register"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Register"));
 		
-		focusStop(15000);
+		focusStop(20000);
 		
 		if (checkElementPresence(commonPage.common_clickable_button("User with this email already exists")) == true) {
 			// Login here

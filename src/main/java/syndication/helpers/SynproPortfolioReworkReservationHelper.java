@@ -1,6 +1,7 @@
 package syndication.helpers;
 
 import org.apache.log4j.Logger;
+import org.testng.Assert;
 
 import syndication.pages.SynproCommonLocatorPage;
 import syndication.pages.SynproDashboardPage;
@@ -83,6 +84,7 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		accessLink(reworkReservation.form_next_button);
 
 		focusStop(15000);
+
 //		waitUntilLoadingPage("Prorated Pricing", commonPage.common_clickable_button("Prorated Pricing"));
 //		waitForElementToBeClickable(commonPage.common_button("Pay now"));
 //		javaScriptClickUsingBy(commonPage.common_button("Pay now"));
@@ -283,8 +285,6 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		waitUntilLoadingPage("Create eSign Template", commonPage.common_clickable_button("Create eSign Template"));
 		focusStop(5000);
 
-		waitUntilLoadingPage("sample-three.pdf", commonPage.common_clickable_button("sample-three.pdf"));
-
 	}
 
 	public void accreditationsForm() throws Exception {
@@ -318,7 +318,133 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		focusStop(5000);
 		// Verifying click on Investors
 		waitForElementToBeClickable(reworkReservation.logOut_eSign);
-		moveToWebElementAndClick(reworkReservation.logOut_eSign);
+		accessLink(reworkReservation.logOut_eSign);
 
 	}
+
+	public void eSignCompleteAsSponsor() throws Exception {
+
+		// wait to load page
+		waitForPageLoad();
+
+		// verify Dash-board page
+		waitUntilLoadingPage("Dashboard", commonPage.common_clickable_button("Dashboard"));
+
+		// Verifying click on Portfolio
+		waitForElementToBeClickable(commonPage.common_clickable_button("Portfolio"));
+		accessLink(commonPage.common_clickable_button("Portfolio"));
+
+		// clicking on automation offering
+		waitUntilLoadingPage("Offerings", commonPage.common_clickable_button("Offerings"));
+		accessLink(reworkReservation.button_automation_offering(TestData.NEW_OFFERING_NAME));
+
+		waitUntilLoadingPage("Subscriptions", commonPage.common_clickable_button("Subscriptions"));
+
+		// click on Subscriptions
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_clickable_button("Subscriptions"));
+		javaScriptClickUsingBy(commonPage.common_clickable_button("Subscriptions"));
+
+		// wait for eSign and click
+		focusStop(3000);
+		waitForElementToBeClickable(reworkReservation.button_sign_now);
+		javaScriptClickUsingBy(reworkReservation.button_sign_now);
+
+		focusStop(10000);
+		moveInSideToFrame("x-hellosign-embedded");
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_span("OK"));
+		javaScriptClickUsingBy(commonPage.common_span("OK"));
+
+		// click to sign
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_clickable_button("Click to sign"));
+		moveToWebElementAndClick(commonPage.common_clickable_button("Click to sign"));
+
+		// click to try it in
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.select_tryInIt);
+		javaScriptClickUsingBy(commonPage.select_tryInIt);
+
+		// Enter signature name
+		focusStop(3000);
+		waitFindEnterTextAsList(commonPage.investor_Signature, TestData.INVESTOR_SPONSOR);
+
+		// click Insert
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_button("Insert"));
+		javaScriptClickUsingBy(commonPage.common_button("Insert"));
+
+		// click on continue
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_span("Continue"));
+		moveToWebElementAndClick(commonPage.common_span("Continue"));
+
+		// click on I agree
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.signature_Iagree);
+		moveToWebElementAndClick(commonPage.signature_Iagree);
+
+		moveOutSideFromFrame();
+
+		// close pop up
+		waitUntilLoadingPage("eSign completed successfully",
+				commonPage.common_clickable_button("eSign completed successfully"));
+		waitForElementToBeClickable(reworkReservation.button_close);
+		javaScriptClickUsingBy(reworkReservation.button_close);
+
+		String complete = textFromApplication(reworkReservation.text_completed);
+		Assert.assertEquals("Completed", complete);
+
+	}
+
+	public void approvedInvestorStatus() throws Exception {
+
+		// wait to load page
+		waitForPageLoad();
+
+		// verify Dash-board page
+		waitUntilLoadingPage("Dashboard", commonPage.common_clickable_button("Dashboard"));
+
+		// Verifying click on Portfolio
+		waitForElementToBeClickable(commonPage.common_clickable_button("Portfolio"));
+		accessLink(commonPage.common_clickable_button("Portfolio"));
+
+		// clicking on automation offering
+		waitUntilLoadingPage("Offerings", commonPage.common_clickable_button("Offerings"));
+		accessLink(reworkReservation.button_automation_offering(TestData.NEW_OFFERING_NAME));
+
+		waitUntilLoadingPage("Subscriptions", commonPage.common_clickable_button("Subscriptions"));
+
+		// click on edit
+		focusStop(3000);
+		accessLink(reworkReservation.edit_investor_status(TestData.AUTOMATION_DEMO_RESERVATION));
+		waitUntilLoadingPage("Edit Investor - Automation Demo",
+				commonPage.common_clickable_button("Edit Investor - Automation Demo"));
+
+		// wait for eSign and click
+		focusStop(3000);
+		waitForElementToBeClickable(reworkReservation.select_status_dropdown);
+		moveToWebElementAndClick(reworkReservation.select_status_dropdown);
+
+		// select Approved
+		waitForElementToBeClickable(reworkReservation.select_approved);
+		javaScriptClickUsingBy(reworkReservation.select_approved);
+
+		// click on update
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_button("Update"));
+		moveToWebElementAndClick(commonPage.common_button("Update"));
+
+		focusStop(3000);
+
+		// verify Dash-board page
+		waitUntilLoadingPage("Dashboard", commonPage.common_clickable_button("Dashboard"));
+
+		// Verifying click on Portfolio
+		waitForElementToBeClickable(commonPage.common_clickable_button("Dashboard"));
+		accessLink(commonPage.common_clickable_button("Dashboard"));
+
+	}
+
 }

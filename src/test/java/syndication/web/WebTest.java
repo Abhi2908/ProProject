@@ -40,7 +40,7 @@ public class WebTest extends TestBase {
 	SynproMassEmailAsSponsorHelper massEmail;
 	SynproPortfolioReworkReservationHelper reworkReservation;
 	SynproMyInvestmentInvestorHelper investmentAsInvestor;
-	
+
 	@BeforeSuite
 	@Parameters("browser")
 	public void setup(String browser) throws IOException {
@@ -285,7 +285,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	//@Test(priority = 7)
+	// @Test(priority = 7)
 	public void synProSendEmailFromTemplateAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -351,7 +351,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Mass Email as sponsor.
 	 */
-	//@Test(priority = 8)
+	// @Test(priority = 8)
 	public void synProMassEmailTemplatesAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -418,7 +418,7 @@ public class WebTest extends TestBase {
 	 * Syndication-Pro test scenario : Rework reservation
 	 */
 	@Test(priority = 9)
-	public void synProReworkReservationr() {
+	public void synProReworkReservationAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
 			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
@@ -428,27 +428,54 @@ public class WebTest extends TestBase {
 			reworkReservation.accreditationsForm();
 			reworkReservation.eSignTemplateForm();
 			reworkReservation.investFromInvestorsPageWhileLogout();
-			driver.navigate().refresh();
-			driver.get(getProps().getProperty("SyndicationDevLoginPageUrl"));
-			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
-			investmentAsInvestor.verifyInvestmentInvestor();
-		
-			//reworkReservation.addReservationsFromInvestorsPage();
-			
-			logoutScenario.logoutPage();
-			//registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
-			//
-			
-			try {
-			//	logoutScenario.logoutPage();
-			} catch (Exception e) {
-				test.log(LogStatus.FAIL, "Logout successfully");
-				assert (false);
-			}
-			test.log(LogStatus.PASS, "SUCCESSFUL!! Verified Dashboard");
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Create Offering and esign page!!");
 		} catch (Exception e) {
 			// To fail test in case of any element identification
-			test.log(LogStatus.FAIL, "Failed!! to Verified Dashboard");
+			test.log(LogStatus.FAIL, "Failed!! User not able to Create Offering and esign page!!");
+			Assert.fail();
+			assert (false);
+		}
+	}
+
+	/**
+	 * Syndication-Pro test scenario : Verify Pending and eSign as Investor
+	 */
+	@Test(priority = 10)
+	public void synProVerifyReworkReservationAsInvestor() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			registrationScenario.registrationAsInvestor(getProps().getProperty("SyndicationDevRegistrationUrl"));
+			investmentAsInvestor.verifyInvestmentInvestor();
+			investmentAsInvestor.verifyEsignDocument();
+			investmentAsInvestor.verifyFundInvestment();
+			logoutScenario.logoutPage();
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Verify Pending and eSign as Investor!!");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! to verify Pending and submit eSign as Investor");
+			Assert.fail();
+			assert (false);
+		}
+
+	}
+	
+	/**
+	 * Syndication-Pro test scenario : Rework reservation
+	 */
+	@Test(priority = 11)
+	public void synProReworkReservationCompleteEsign() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.loginPage();
+			reworkReservation.eSignCompleteAsSponsor();
+			reworkReservation.approvedInvestorStatus();
+			reworkReservation.investFromInvestorsPageWhileLogout();
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Create Offering and esign page!!");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! User not able to Create Offering and esign page!!");
 			Assert.fail();
 			assert (false);
 		}

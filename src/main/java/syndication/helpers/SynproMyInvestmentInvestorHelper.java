@@ -21,14 +21,12 @@ public class SynproMyInvestmentInvestorHelper extends CommonUtils {
 		// wait to load page
 		waitForPageLoad();
 
-		focusStop(2000);
-
 		// wait until Welcome pop-up page visible
+		focusStop(2000);
 		waitUntilLoadingPage("Welcome", commonPage.common_clickable_button("Welcome"));
 
+		// Cancel Start tour
 		focusStop(1000);
-
-		// click on cancel Start tour
 		waitForElementToBeClickable(commonPage.common_clickable_button("Cancel"));
 		moveToWebElementAndClick(commonPage.common_clickable_button("Cancel"));
 
@@ -39,27 +37,29 @@ public class SynproMyInvestmentInvestorHelper extends CommonUtils {
 		// wait to load page
 		waitForPageLoad();
 
-		// waiting for Create eSign Template
+		// Create eSign Template
 		waitUntilLoadingPage("Schedule a Call", commonPage.common_button("Schedule a Call"));
 		focusStop(2000);
 
-		// click on Automation offering Invest
+		// Automation offering Invest
 		scrollPageDownUsingActions(investPage.invest_button("Automation Offering"));
+
 		focusStop(2000);
 		waitForElementToBeClickable(investPage.invest_button("Automation Offering"));
 		javaScriptClickUsingBy(investPage.invest_button("Automation Offering"));
 
-		// wait for Diligence and confirm
+		// Diligence and confirm
 		waitUntilLoadingPage("Diligence", commonPage.common_clickable_button("Diligence"));
 		waitForElementToBeClickable(investPage.confirm_review_doc);
 		javaScriptClickUsingBy(investPage.confirm_review_doc);
 		javaScriptClickUsingBy(commonPage.common_button("Next"));
 
-		// wait for Invest and confirm
+		// Invest and confirm
 		focusStop(3000);
 		waitUntilLoadingPage("Invest", commonPage.common_clickable_button("Invest"));
 		waitForElementToBeClickable(investPage.select_investing_as_dropdown);
 		moveToWebElementAndClick(investPage.select_investing_as_dropdown);
+		waitForElementToBeClickable(investPage.select_automationDemo);
 		javaScriptClickUsingBy(investPage.select_automationDemo);
 		waitFindEnterTextAsList(commonPage.common_send_text("investedAmount"), TestData.INVESTMENT_AMOUNT);
 		javaScriptClickUsingBy(commonPage.common_button("Next"));
@@ -69,88 +69,100 @@ public class SynproMyInvestmentInvestorHelper extends CommonUtils {
 		javaScriptClickUsingBy(commonPage.common_button("Continue"));
 		waitUntilLoadingPage("Update Profile", commonPage.common_clickable_button("Update Profile"));
 		javaScriptClickUsingBy(commonPage.common_button("Save Profile"));
+
 		focusStop(2000);
 		waitUntilLoadingPage("Profile Not Complete", commonPage.common_clickable_button("Profile Not Complete"));
 		javaScriptClickUsingBy(commonPage.common_button("Continue Anyway"));
 		waitUntilLoadingPage("Profile Updated", commonPage.common_clickable_button("Profile Updated"));
 		javaScriptClickUsingBy(commonPage.common_button("OK"));
-		
-		try {
-			focusStop(3000);
-			javaScriptClickUsingBy(commonPage.common_button("Yes"));
-		} catch (Exception e) {
 
-		}
-		
-		waitFindEnterTextAsList(commonPage.common_send_text("investedAmount"), TestData.INVESTMENT_AMOUNT);
+		// Verify Accreditation
+		focusStop(3000);
+		waitUntilLoadingPage("Verify Accreditation", commonPage.common_clickable_button("Verify Accreditation"));
+		waitForElementToBeClickable(commonPage.common_button("Continue"));
+		javaScriptClickUsingBy(commonPage.common_button("Continue"));
+		System.out.println("Already Accredited? Upload letter for review");
+
+	}
+
+	public void verifyEsignDocument() throws Exception {
 
 		// wait for eSign template
 		focusStop(3000);
-		waitUntilLoadingPage("Invest", commonPage.common_clickable_button("Invest"));
-		waitForElementToBeClickable(investPage.select_investing_as_dropdown);
-		javaScriptClickUsingBy(investPage.select_investing_as_dropdown);
-		javaScriptClickUsingBy(investPage.select_automationDemo);
-		waitFindEnterTextAsList(commonPage.common_send_text("investedAmount"), TestData.INVESTMENT_AMOUNT);
+		waitUntilLoadingPage("Choose an Available Document",
+				commonPage.common_clickable_button("Choose an Available Document"));
+		waitForElementToBeClickable(commonPage.common_button("Sign Now"));
+		javaScriptClickUsingBy(commonPage.common_button("Sign Now"));
 
-		if (checkElementIsEnabled(commonPage.common_clickable_button("Subscriptions"))) {
-
-			waitForElementToBeClickable(commonPage.common_clickable_button("Subscriptions"));
-
-		}
-
-		waitForElementToBeClickable(commonPage.common_clickable_button("eSign Tutorial"));
-
-		// upload Document
-
-		// select profile
-		javaScriptClickUsingBy(commonPage.common_clickable_button("Select Profile"));
-		javaScriptClickUsingBy(commonPage.common_clickable_button("Retirement Plan"));
-
-		// sponsor signing order
-		moveToWebElementAndClick(reworkReservation.sponsor_signing_order);
-		javaScriptClickUsingBy(commonPage.common_clickable_button("Sponsor will eSign after the investor(s)"));
-
-		// Number of investors signing
-		focusStop(2000);
-		moveToWebElementAndClick(reworkReservation.number_of_investor_sign);
-
-		// save and upload
-
-		// move inside frame
 		focusStop(10000);
 		moveInSideToFrame("x-hellosign-embedded");
-		focusStop(5000);
-		moveInSideToFrameWithTitle(reworkReservation.eSign_frame);
 
-		// wait for Create Your Template
-
-		moveToWebElementAndClick(reworkReservation.gotIt);
-
-		// drag and drop investor sign column
-		focusStop(5000);
-		dragAndDrop(reworkReservation.drag_Investor_sign, reworkReservation.drop_Investor_sign, 300);
 		focusStop(3000);
-		waitForElementToBeClickable(reworkReservation.drop_Investor_sign);
-		moveToWebElementAndClick(reworkReservation.drop_Investor_sign);
+		waitForElementToBeClickable(commonPage.common_span("OK"));
+		javaScriptClickUsingBy(commonPage.common_span("OK"));
 
-		// select drop down for signer
+		// click to sign
 		focusStop(3000);
-		moveToWebElementAndClick(reworkReservation.dropDown_signer);
-		moveToWebElementAndClick(reworkReservation.dropDown_select_sponsor);
+		try {
+			if (checkElementIsEnabled(commonPage.common_clickable_button("Click to sign")) == true) {
+				waitForElementToBeClickable(commonPage.common_clickable_button("Click to sign"));
+				moveToWebElementAndClick(commonPage.common_clickable_button("Click to sign"));
+				moveToWebElementAndClick(commonPage.common_clickable_button("Click to sign"));
+			}
+		} catch (Exception e) {
+			System.out.println("Facing error");
+		}
 
-		// drag and drop investor sign column
-		focusStop(5000);
-		dragAndDrop(reworkReservation.drag_Investor_sign, reworkReservation.drop_Investor_sign, 200);
+		// click to try it in
 		focusStop(3000);
-		waitForElementToBeClickable(reworkReservation.drop_Investor_sign);
-		accessLink(reworkReservation.drop_Investor_sign);
+		waitForElementToBeClickable(commonPage.select_tryInIt);
+		javaScriptClickUsingBy(commonPage.select_tryInIt);
 
-		// click on continue button
-		javaScriptClickUsingBy(reworkReservation.continue_button);
+		// Enter signature name
+		focusStop(3000);
+		waitFindEnterTextAsList(commonPage.investor_Signature, TestData.INVESTOR_SIGNATURE);
 
-		// waiting for Create eSign Template
+		// click Insert
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_button("Insert"));
+		javaScriptClickUsingBy(commonPage.common_button("Insert"));
 
+		// click on continue
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.common_span("Continue"));
+		moveToWebElementAndClick(commonPage.common_span("Continue"));
+
+		// click on I agree
+		focusStop(3000);
+		waitForElementToBeClickable(commonPage.signature_Iagree);
+		moveToWebElementAndClick(commonPage.signature_Iagree);
+
+		moveOutSideFromFrame();
+
+	}
+
+	public void verifyFundInvestment() throws Exception {
+
+		// wait for Funding Instructions
+		focusStop(3000);
+		waitUntilLoadingPage("Funding Instructions", commonPage.common_clickable_button("Funding Instructions"));
+
+		// click on select date
+		waitForElementToBeClickable(commonPage.common_send_text("fundTransferDate"));
+		javaScriptClickUsingBy(commonPage.common_send_text("fundTransferDate"));
+
+		// select date
 		focusStop(2000);
+		waitForElementToBeClickable(commonPage.common_span("OK"));
+		javaScriptClickUsingBy(commonPage.common_span("OK"));
+
+		// click Submit
+		waitForElementToBeClickable(commonPage.common_button("Submit"));
+		javaScriptClickUsingBy(commonPage.common_button("Submit"));
+
+		// wait for Pending Investments
+		waitUntilLoadingPage("Pending Investments", commonPage.common_clickable_button("Pending Investments"));
+		textFromApplication(commonPage.common_clickable_button("Pending Signature"));
 
 	}
 

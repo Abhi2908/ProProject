@@ -12,6 +12,9 @@ public class SynproCommonLocatorPage {
 	 */
 
 	public By close_popup = By.id("test-id__close__button");
+	public By select_tryInIt = By.xpath("//li[@title=\"Type it in\"]");
+	public By investor_Signature = By.xpath("//input[@placeholder=\"Your name\"]");
+	public By signature_Iagree = By.xpath("//*[@id=\"signer-mobile-application\"]/div/div/div/div[1]/div/div/button/span");
 
 	public By common_clickable_button(String select_name) {
 		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]");
@@ -20,6 +23,11 @@ public class SynproCommonLocatorPage {
 
 	public By common_button(String select_name) {
 		By webElement = By.xpath("//button[contains(text(),\"" + select_name + "\")]");
+		return webElement;
+	}
+	
+	public By common_span(String select_name) {
+		By webElement = By.xpath("//span[contains(text(),\"" + select_name + "\")]");
 		return webElement;
 	}
 

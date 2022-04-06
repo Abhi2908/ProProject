@@ -118,8 +118,9 @@ public class TestData extends TestBase {
 	 *Investment Value
 	 */
 	public static final String INVESTMENT_AMOUNT = "1000";
-	
-	
-	
+	public static final String INVESTMENT_PENDING = "Pending";
+	public static final String INVESTMENT_ACCREDITED = "Accredited";
+	public static final String INVESTOR_SIGNATURE = "Auto Investor Signature";
+	public static final String INVESTOR_SPONSOR = "Auto Sponsor Signature";
 	
 }
