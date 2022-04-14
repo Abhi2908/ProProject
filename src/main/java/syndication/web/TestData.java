@@ -12,7 +12,7 @@ public class TestData extends TestBase {
 	public static final String FIRSTNAME_AS_INVESTOR = "Automation";
 	public static final String LASTNAME_AS_INVESTOR = "Demo";
 	public static final String EMAIL_ID_AS_INVESTOR = "automation.demo@yopmail.com";
-	public static final String PHONE_AS_INVESTOR = "1234567890";
+	public static final String PHONE_NUMBER = "1234567890";
 	public static final String HEAR_ABOUT_US = "Social-Media";
 	public static final String PASSWORD = "Test@1234567";
 	
@@ -122,5 +122,22 @@ public class TestData extends TestBase {
 	public static final String INVESTMENT_ACCREDITED = "Accredited";
 	public static final String INVESTOR_SIGNATURE = "Auto Investor Signature";
 	public static final String INVESTOR_SPONSOR = "Auto Sponsor Signature";
+	
+	/**
+	 *Payment New Entity
+	 */
+	public static final String ADMIT_FIRST_NAME = "Automation";
+	public static final String ADMIT_LAST_NAME = "Payment";
+	public static final String ADMIT_CONTROLLER_NAME = "Controller";
+	public static final String ENTITY_NAME = "Automation Test";
+	public static final String NINE_DIGIT_NUMBER = "904384474";
+	public static final String PHONE_NMBR = "12345678908";
+	public static final String STREET_ADDRESS = "12092, 82 Ave, Rogger Street";
+	public static final String PIN_CODE = "78628";
+	public static final String PREFERRED_NAME = "Preferred Name";
+	public static final String JOB_TITLE = "QA Job";
+	public static final String PENDING_DOCUMENT = "Document Verification Pending";
+	
+	public static final String ROUTING_BANK = "222222226";
 	
 }

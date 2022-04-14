@@ -22,6 +22,7 @@ import syndication.helpers.SynproLoginSponsorHelper;
 import syndication.helpers.SynproLogoutHelper;
 import syndication.helpers.SynproMassEmailAsSponsorHelper;
 import syndication.helpers.SynproMyInvestmentInvestorHelper;
+import syndication.helpers.SynproPaymentHelper;
 import syndication.helpers.SynproPortfolioReworkReservationHelper;
 import syndication.helpers.SynproRegistrationHelper;
 
@@ -40,7 +41,8 @@ public class WebTest extends TestBase {
 	SynproMassEmailAsSponsorHelper massEmail;
 	SynproPortfolioReworkReservationHelper reworkReservation;
 	SynproMyInvestmentInvestorHelper investmentAsInvestor;
-
+	SynproPaymentHelper payments;
+	
 	@BeforeSuite
 	@Parameters("browser")
 	public void setup(String browser) throws IOException {
@@ -57,6 +59,7 @@ public class WebTest extends TestBase {
 		massEmail = new SynproMassEmailAsSponsorHelper();
 		reworkReservation = new SynproPortfolioReworkReservationHelper();
 		investmentAsInvestor = new SynproMyInvestmentInvestorHelper();
+		payments = new SynproPaymentHelper();
 	}
 
 	@BeforeMethod
@@ -417,7 +420,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Rework reservation
 	 */
-	@Test(priority = 9)
+	//@Test(priority = 9)
 	public void synProReworkReservationAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -440,7 +443,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Pending and eSign as Investor
 	 */
-	@Test(priority = 10)
+	//@Test(priority = 10)
 	public void synProVerifyReworkReservationAsInvestor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -461,9 +464,9 @@ public class WebTest extends TestBase {
 	}
 	
 	/**
-	 * Syndication-Pro test scenario : Rework reservation
+	 * Syndication-Pro test scenario : Rework reservation complete eSign form as a sponsor 
 	 */
-	@Test(priority = 11)
+	//@Test(priority = 11)
 	public void synProReworkReservationCompleteEsign() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -472,6 +475,29 @@ public class WebTest extends TestBase {
 			reworkReservation.eSignCompleteAsSponsor();
 			reworkReservation.approvedInvestorStatus();
 			reworkReservation.investFromInvestorsPageWhileLogout();
+			test.log(LogStatus.PASS, "SUCCESSFUL!! Create Offering and esign page!!");
+		} catch (Exception e) {
+			// To fail test in case of any element identification
+			test.log(LogStatus.FAIL, "Failed!! User not able to Create Offering and esign page!!");
+			Assert.fail();
+			assert (false);
+		}
+	}
+	
+	/**
+	 * Syndication-Pro test scenario : Payment scenarios
+	 */
+	@Test(priority = 12)
+	public void synProPaymentPage() {
+		try {
+			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
+			landingHomePage.landingPage(getProps().getProperty("SyndicationDevLoginPageUrl"));
+			loginAsSponsor.loginPage();
+			payments.verifyPaymentPage();
+			payments.addBasicInfoEntity(getProps().getProperty("SyndicationDevPaymentPageUrl"));
+			payments.addControllerInformationEntity();
+			payments.uploadControllerIDs();
+			payments.verifyAddedEntity();
 			test.log(LogStatus.PASS, "SUCCESSFUL!! Create Offering and esign page!!");
 		} catch (Exception e) {
 			// To fail test in case of any element identification

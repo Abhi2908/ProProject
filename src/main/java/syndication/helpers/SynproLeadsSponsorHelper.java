@@ -79,7 +79,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 
 		// Enter values in email and phone
 		waitFindEnterTextAsList(commonPage.common_send_text("email"), TestData.EMAIL_ID_ADD_LEADS);
-		waitFindEnterText(registrationPage.phone, TestData.PHONE_AS_INVESTOR);
+		waitFindEnterText(registrationPage.phone, TestData.PHONE_NUMBER);
 
 		// Click and select from i am looking to invest
 		moveToWebElementAndClick(registrationPage.i_am_looking_to_invest);
