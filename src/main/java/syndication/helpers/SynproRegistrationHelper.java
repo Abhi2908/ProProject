@@ -90,7 +90,6 @@ public class SynproRegistrationHelper extends CommonUtils {
 				TestData.TERM_AND_CONDITIONS_ERROR_MSG);
 
 		// Invalid email verification
-
 		List<Object> itemList = read.getTableArray(emailFilePath, Name, row);
 		if (!itemList.isEmpty()) {
 
@@ -111,15 +110,14 @@ public class SynproRegistrationHelper extends CommonUtils {
 		}
 
 		// invalid password verification
-
 		List<Object> itemPasswordList = read.getTableArray(passwordFilePath, Name, row);
 		if (!itemPasswordList.isEmpty()) {
 
 			int lengh = itemPasswordList.size();
 
 			for (int i = 0; i < lengh; i++) {
+				
 				// String item = itemList.get(i).toString();
-
 				waitFindEnterTextAsList(commonPage.common_send_text("password"), itemPasswordList.get(i).toString());
 				// click on login
 				waitForElementToBeClickable(commonPage.common_clickable_button("Register"));
@@ -131,6 +129,7 @@ public class SynproRegistrationHelper extends CommonUtils {
 			}
 
 		}
+		
 		// verify confirm match password
 		waitFindEnterText(commonPage.common_send_text("confirmPassword"), TestData.PASSWORD);
 		assertString(

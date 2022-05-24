@@ -15,7 +15,7 @@ public class SynproCommonLocatorPage {
 	public By select_tryInIt = By.xpath("//li[@title=\"Type it in\"]");
 	public By investor_Signature = By.xpath("//input[@placeholder=\"Your name\"]");
 	public By signature_Iagree = By.xpath("//*[@id=\"signer-mobile-application\"]/div/div/div/div[1]/div/div/button/span");
-
+	public By logOut = By.xpath("//*[@id=\"root\"]/div[1]/div/main/div/div[1]/div[2]/section/div[1]/div/div[1]/div/div/ul[2]/a/li/p");
 	public By common_clickable_button(String select_name) {
 		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]");
 		return webElement;
@@ -63,7 +63,7 @@ public class SynproCommonLocatorPage {
 	}
 	
 	public By assert_responsiveTableValues(String select_name) {
-		By webElement = By.xpath("//*[@class=\" responsiveTable\"]//*[contains(text(),\"" + select_name + "\")]");
+		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]");
 		return webElement;
 	}
 	

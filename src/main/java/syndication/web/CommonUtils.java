@@ -1416,6 +1416,7 @@ public class CommonUtils extends TestBase {
 	public static void verifyingLoadApplicationPageUrl(String url) {
 		try {
 			waitForPageLoad();
+			//focusStop(3);
 			Assert.assertEquals(url, driver.getCurrentUrl());
 		} catch (Exception e) {
 			logger.error(e);

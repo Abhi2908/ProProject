@@ -116,7 +116,7 @@ public class TestBase {
 				WebDriverManager.chromedriver().setup();
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("enable-automation");
-				// options.addArguments("--headless");
+				//options.addArguments("--headless");
 				options.addArguments("--window-size=1920,1080");
 				options.addArguments("--no-sandbox");
 				options.addArguments("--enable-extensions");
@@ -131,7 +131,7 @@ public class TestBase {
 //				DesiredCapabilities caps = DesiredCapabilities.chrome();
 //				caps.setCapability("version", "");
 //				caps.setPlatform(Platform.LINUX);
-//				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
+//				driver = new RemoteWebDriver(new URL("http://localhost:2222/wd/hub"), caps);
 //				((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
 //				sessionID = ((RemoteWebDriver) driver).getSessionId().toString();
 
@@ -295,8 +295,8 @@ public class TestBase {
 			logger.info("Running after every Scenario...");
 //			Response response = RestAssured.given().request().get(automationCleanUpEndpoint).andReturn();
 //			logger.info(response.asString());
-//			driver.quit();
-//			driver.close();
+			driver.quit();
+			driver.close();
 			extent.flush();
 			extent.close();
 		} catch (Exception e) {

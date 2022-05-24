@@ -48,7 +48,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		getAnotherWindow(yopMail);
 
 		// send email value
-		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.ADD_EMAIL);
+		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.EMAIL_ID_ADD_LEADS);
 
 		// click on arrow
 		waitForElementToBeClickable(leadsPage.create_arrow_login);
@@ -73,8 +73,8 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		waitFindEnterTextAsList(commonPage.common_send_text("nickName"), TestData.NICKNAME_ADD_LEADS);
 
 		// Click and select value from residency drop-down
-		waitForElementToBeClickable(registrationPage.residency_dropDown("Residency"));
-		moveToWebElementAndClick(registrationPage.residency_dropDown("Residency"));
+		waitForElementToBeClickable(registrationPage.residency);
+		actionsMouseDoubleClick(registrationPage.residency);
 		accessLink(leadsPage.select_residency_value);
 
 		// Enter values in email and phone
@@ -96,9 +96,16 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		waitForElementToBeClickable(commonPage.common_clickable_button("Add Leads"));
 		accessLink(commonPage.click_popUp("Invite Lead"));
 
-		// Verifying click on close
-		waitForElementToBeClickable(commonPage.common_clickable_button("Close"));
-		accessLink(commonPage.common_clickable_button("Close"));
+		if (checkElementPresence(commonPage.common_clickable_button("User with this email already exists")) == true) {
+			// Verifying click on close
+			waitForElementToBeClickable(commonPage.common_clickable_button("Cancel"));
+			accessLink(commonPage.common_clickable_button("Cancel"));
+
+		} else {
+			// Verifying click on close
+			waitForElementToBeClickable(commonPage.common_clickable_button("Close"));
+			accessLink(commonPage.common_clickable_button("Close"));
+		}
 	}
 
 	public void verifyInvitesOnEmail(String yopMail, String leadPage) throws Exception {
@@ -107,7 +114,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		getAnotherWindow(yopMail);
 
 		// send email value
-		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.ADD_EMAIL);
+		waitFindEnterTextAsList(commonPage.common_send_text("login"), TestData.EMAIL_ID_ADD_LEADS);
 
 		// click on arrow
 		waitForElementToBeClickable(leadsPage.create_arrow_login);
@@ -158,11 +165,8 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 				TestData.FIRSTNAME_ADD_LEADS + " " + TestData.LASTNAME_ADD_LEADS);
 		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.EMAIL_ID_ADD_LEADS)),
 				TestData.EMAIL_ID_ADD_LEADS);
-		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.INVESTMENT_CAPACITY)),
-				TestData.INVESTMENT_CAPACITY);
 		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.RESIDENCY)),
 				TestData.RESIDENCY);
-		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.INVITED)), TestData.INVITED);
 
 	}
 
@@ -221,17 +225,14 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 				TestData.FIRSTNAME_ADD_LEADS + " " + TestData.LASTNAME_ADD_LEADS);
 		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.EMAIL_ID_ADD_LEADS)),
 				TestData.EMAIL_ID_ADD_LEADS);
-		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.INVESTMENT_CAPACITY)),
-				TestData.INVESTMENT_CAPACITY);
 		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.RESIDENCY)),
 				TestData.RESIDENCY);
-		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.INVITED)), TestData.INVITED);
-		
-		//click on leads
+
+		// click on leads
 		accessLink(commonPage.common_clickable_button("Leads"));
 
 		verifyDeleteAddTagsAndSendEmail();
-		
+
 		// Verifying click on verified capacity drop-down
 		waitForElementToBeClickable(commonPage.common_clickable_button("Reset All"));
 		accessLink(commonPage.common_clickable_button("Reset All"));
@@ -243,57 +244,60 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		// wait to load page
 		waitForPageLoad();
 
-		// click on check box 
+		// click on check box
 		waitForElementToBeClickable(leadsPage.checkBox_addLeadPage);
 		accessLink(leadsPage.checkBox_addLeadPage);
-		
+
 		// add tags
 		waitUntilLoadingPage("Add Tag", commonPage.common_clickable_button("Add Tag"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Add Tag"));
 		accessLink(commonPage.common_clickable_button("Add Tag"));
-		
+
 		// wait until pop up visible
-		waitUntilLoadingPage("Create a new tag or select an existing tag", commonPage.common_clickable_button("Create a new tag or select an existing tag"));
+		waitUntilLoadingPage("Create a new tag or select an existing tag",
+				commonPage.common_clickable_button("Create a new tag or select an existing tag"));
 		waitFindEnterTextAsList(leadsPage.create_tagField, TestData.CREATE_TAG);
-		
+
 		// click on created tag
 		waitForElementToBeClickable(leadsPage.click_Create_tagField);
 		accessLink(leadsPage.click_Create_tagField);
-		
+
 		// click on save pop up
 		waitForElementToBeClickable(commonPage.popUp_Button("", "Save"));
 		accessLink(commonPage.popUp_Button("", "Save"));
-		
+
 		// wait and verify email
-		waitUntilLoadingPage(TestData.EMAIL_ID_ADD_LEADS, commonPage.common_clickable_button(TestData.EMAIL_ID_ADD_LEADS));
-		
-		//Assert added tag
-		assertString(textFromApplication(commonPage.popUp_Button(TestData.EMAIL_ID_ADD_LEADS, TestData.CREATE_TAG)), TestData.CREATE_TAG);
-	
+		waitUntilLoadingPage(TestData.EMAIL_ID_ADD_LEADS,
+				commonPage.common_clickable_button(TestData.EMAIL_ID_ADD_LEADS));
+
+		// Assert added tag
+		assertString(textFromApplication(commonPage.popUp_Button(TestData.EMAIL_ID_ADD_LEADS, TestData.CREATE_TAG)),
+				TestData.CREATE_TAG);
+
 		// click on tag and delete
-		waitForElementToBeClickable(commonPage.popUp_Button(TestData.EMAIL_ID_ADD_LEADS,TestData.CREATE_TAG));
+		waitForElementToBeClickable(commonPage.popUp_Button(TestData.EMAIL_ID_ADD_LEADS, TestData.CREATE_TAG));
 		accessLink(commonPage.popUp_Button(TestData.EMAIL_ID_ADD_LEADS, TestData.CREATE_TAG));
-		
+
 		// wait until pop up visible
 		waitForElementToBeClickable(commonPage.common_button("Delete"));
 		accessLink(commonPage.common_button("Delete"));
-		
+
 		// Delete Group
 		waitForElementToBeClickable(commonPage.popUp_Button(TestData.DELETE_CREATE_TAG, "Yes"));
 		accessLink(commonPage.popUp_Button(TestData.DELETE_CREATE_TAG, "Yes"));
-		
+
 		// send email
 		waitUntilLoadingPage("Send Email", commonPage.common_clickable_button("Send Email"));
 		waitForElementToBeClickable(commonPage.common_clickable_button("Send Email"));
 		accessLink(commonPage.common_clickable_button("Send Email"));
-		
+
 		// wait until email page visible
 		waitUntilLoadingPage("Subject", commonPage.common_clickable_button("Subject"));
-		
+
 		// Email Subject
 		waitFindEnterText(commonPage.common_send_text("subject"), TestData.EMAIL_SUBJECT);
 		waitFindEnterTextAsList(commonPage.common_send_text("replyTo"), TestData.EMAIL_ID_ADD_LEADS);
-		
+
 		// click on enter type
 		moveToWebElementAndClick(leadsPage.select_emailType);
 
@@ -315,23 +319,23 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 		// Send email
 		waitForElementToBeClickable(commonPage.common_button("Send"));
 		moveToWebElementAndClick(commonPage.common_button("Send"));
-	
+
 		// click on OK and confirm send
 		waitForElementToBeClickable(commonPage.popUp_Button("", "OK"));
 		accessLink(commonPage.popUp_Button("", "OK"));
-		
+
 		// click and close email
 		waitForElementToBeClickable(dashboardPage.cross_tour);
 		accessLink(dashboardPage.cross_tour);
-		
+
 		// delete User
 		waitForElementToBeClickable(commonPage.common_clickable_button("Delete User"));
 		accessLink(commonPage.common_clickable_button("Delete User"));
-		
+
 		// click on permanently delete
 		waitForElementToBeClickable(commonPage.popUp_Button(TestData.PERMANENTLY_DELETE_LEAD, "Yes"));
 		accessLink(commonPage.popUp_Button(TestData.PERMANENTLY_DELETE_LEAD, "Yes"));
-		
+
 	}
 
 }

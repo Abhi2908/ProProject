@@ -22,7 +22,7 @@ public class SynproMassEmailAsSponsorPage extends GetDriver {
 	public By drop_Container = By.xpath("//*[@id=\"u_body\"]");
 	public By column_dropType = By.xpath(
 			"/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div/div/div/div");
-	public By frame = By.xpath("//iframe[@src=\"https://editor.unlayer.com/1.2.140/editor.html\"]");
+	public By frame = By.xpath("//iframe[contains(@src,\"https://editor.unlayer.com/1.2\")]");
 	public By select_Column_Four = By.xpath("//div[@class=\"collapse show\"]/div/div/div/div/div[4]/div/div[2]/div");
 
 	public By columnProperty_backgroundColor(String select_name) {
