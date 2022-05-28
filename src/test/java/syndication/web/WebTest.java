@@ -423,7 +423,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Rework reservation
 	 */
-	//@Test(priority = 9)
+	@Test(priority = 9)
 	public void synProReworkReservationAsSponsor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -447,7 +447,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Verify Pending and eSign as Investor
 	 */
-	//@Test(priority = 10)
+	@Test(priority = 10)
 	public void synProVerifyReworkReservationAsInvestor() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));
@@ -470,7 +470,7 @@ public class WebTest extends TestBase {
 	/**
 	 * Syndication-Pro test scenario : Rework reservation complete eSign form as a sponsor 
 	 */
-	//@Test(priority = 11)
+	@Test(priority = 11)
 	public void synProReworkReservationCompleteEsign() {
 		try {
 			loadUrl(getProps().getProperty("SyndicationDevPageUrl"), getProps().getProperty("SyndicationDevSitetitle"));

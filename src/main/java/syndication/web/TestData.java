@@ -48,7 +48,7 @@ public class TestData extends TestBase {
 	public static final String FIRSTNAME_ADD_LEADS = "Syndication";
 	public static final String LASTNAME_ADD_LEADS = "Pro2";
 	public static final String NICKNAME_ADD_LEADS = "synpro";
-	public static final String EMAIL_ID_ADD_LEADS = "adhjked.argh@yopmail.com";
+	public static final String EMAIL_ID_ADD_LEADS = "pyouinp.iopp@yopmail.com";
 	public static final String INVESTMENT_CAPACITY = "$10,000 - $50,000";
 	public static final String RESIDENCY = "CA";
 	public static final String SELF_ACC = "Yes";

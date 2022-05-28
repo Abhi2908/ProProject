@@ -295,10 +295,9 @@ public class TestBase {
 			logger.info("Running after every Scenario...");
 //			Response response = RestAssured.given().request().get(automationCleanUpEndpoint).andReturn();
 //			logger.info(response.asString());
-			driver.quit();
-			driver.close();
+//			driver.close();
 			extent.flush();
-			extent.close();
+//  		extent.close();
 		} catch (Exception e) {
 			logger.info(e.toString());
 		}

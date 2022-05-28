@@ -20,7 +20,7 @@ public class SynproCommonLocatorPage {
 		By webElement = By.xpath("//*[contains(text(),\"" + select_name + "\")]");
 		return webElement;
 	}
-
+	
 	public By common_button(String select_name) {
 		By webElement = By.xpath("//button[contains(text(),\"" + select_name + "\")]");
 		return webElement;

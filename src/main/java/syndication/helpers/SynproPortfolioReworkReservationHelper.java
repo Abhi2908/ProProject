@@ -302,8 +302,8 @@ public class SynproPortfolioReworkReservationHelper extends CommonUtils {
 		focusStop(1000);
 		waitForElementToBeClickable(commonPage
 				.accreditations_toggleButtons("Restrict eSign & Funding instructions only to Accredited Investors."));
-		javaScriptClickUsingBy(commonPage
-				.accreditations_toggleButtons("Restrict eSign & Funding instructions only to Accredited Investors."));
+//		javaScriptClickUsingBy(commonPage
+//				.accreditations_toggleButtons("Restrict eSign & Funding instructions only to Accredited Investors."));
 		focusStop(1000);
 		waitForElementToBeClickable(
 				commonPage.accreditations_toggleButtons("Add Custom instructions for the investors."));

@@ -107,7 +107,7 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 			accessLink(commonPage.common_clickable_button("Close"));
 		}
 	}
-
+	
 	public void verifyInvitesOnEmail(String yopMail, String leadPage) throws Exception {
 
 		// Get Yop mail
@@ -167,6 +167,100 @@ public class SynproLeadsSponsorHelper extends CommonUtils {
 				TestData.EMAIL_ID_ADD_LEADS);
 		assertString(textFromApplication(commonPage.assert_responsiveTableValues(TestData.RESIDENCY)),
 				TestData.RESIDENCY);
+		
+		//click on created lead
+		accessLink(commonPage.common_span(TestData.FIRSTNAME_ADD_LEADS));
+		
+		waitUntilLoadingPage("Archive", commonPage.common_clickable_button("Archive"));
+		
+		// click on reservation
+		waitForElementToBeClickable(commonPage.common_button("Reservation"));
+		accessLink(commonPage.common_button("Reservation"));
+		
+		// Add reservation
+		waitForElementToBeClickable(commonPage.common_button("Add Reservation"));
+		moveToWebElementAndClick(commonPage.common_button("Add Reservation"));
+		
+		// Amount
+		focusStop(3000);
+		waitFindEnterText(commonPage.common_send_text("investedAmount"), TestData.OFFERING_MIN_INVESTMENT);
+		
+		//profile
+		moveToWebElementAndClick(leadsPage.profile);
+		moveToWebElementAndClick(leadsPage.profile_synPro);
+		
+		// confidence
+		moveToWebElementAndClick(leadsPage.confidenceLevel);
+		moveToWebElementAndClick(leadsPage.veryLikely);
+		
+		// reservation
+		moveToWebElementAndClick(leadsPage.select_reservation);
+		moveToWebElementAndClick(leadsPage.seedIntoApart);
+		
+		// save
+		waitForElementToBeClickable(commonPage.common_button("Save"));
+		moveToWebElementAndClick(commonPage.common_button("Save"));
+		
+		focusStop(10000);
+		
+		// click on eye for Archive
+		waitForElementToBeClickable(leadsPage.eyeArchive);
+		accessLink(leadsPage.eyeArchive);
+		
+		focusStop(2000);
+		
+		// click on eye for Archive
+		waitForElementToBeClickable(commonPage.common_clickable_button("Archive"));
+		accessLink(commonPage.common_clickable_button("Archive"));
+		
+		// click on yes
+		waitForElementToBeClickable(commonPage.common_clickable_button("Yes"));
+		accessLink(commonPage.common_clickable_button("Yes"));
+		
+		// click on Investment
+		waitForElementToBeClickable(commonPage.common_button("Investments"));
+		accessLink(commonPage.common_button("Investments"));
+				
+		// Add investment
+		waitForElementToBeClickable(commonPage.common_button("Add Investment"));
+		moveToWebElementAndClick(commonPage.common_button("Add Investment"));
+		
+		//offering
+		focusStop(2000);
+		waitForElementToBeClickable(leadsPage.offering);
+		moveToWebElementAndClick(leadsPage.offering);
+		focusStop(2000);
+		waitForElementToBeClickable(commonPage.common_clickable_button("Automation Offering"));
+		moveToWebElementAndClick(commonPage.common_clickable_button("Automation Offering"));
+				
+		// profile
+		focusStop(2000);
+		waitForElementToBeClickable(leadsPage.select_profile);
+		moveToWebElementAndClick(leadsPage.select_profile);
+		focusStop(2000);
+		waitForElementToBeClickable(commonPage.common_clickable_button(TestData.FIRSTNAME_ADD_LEADS));
+		moveToWebElementAndClick(commonPage.common_clickable_button(TestData.FIRSTNAME_ADD_LEADS));
+				
+		// status
+		focusStop(2000);
+		waitForElementToBeClickable(leadsPage.status);
+		moveToWebElementAndClick(leadsPage.status);
+		focusStop(2000);
+		waitForElementToBeClickable(commonPage.common_clickable_button("Approved"));
+		moveToWebElementAndClick(commonPage.common_clickable_button("Approved"));
+		
+		// click on yes
+		waitForElementToBeClickable(commonPage.common_clickable_button("Save"));
+		accessLink(commonPage.common_clickable_button("Save"));
+		
+		// click on edit profile
+		waitForElementToBeClickable(commonPage.common_button("Edit Profile"));
+		accessLink(commonPage.common_button("Edit Profile"));
+				
+		// update profile
+		waitForElementToBeClickable(commonPage.common_button("Update Profile"));
+		moveToWebElementAndClick(commonPage.common_button("Update Profile"));
+		
 
 	}
 
